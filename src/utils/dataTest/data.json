@@ -1,0 +1,32 @@
+{
+    "0": {
+        "vendorName": "Foot Korner",
+        "type": "vendor",
+        "typeOfGoods": ["clothing", "shoes", "sports accessories"],
+        "vendorDescription": "Foot Korner est le rendez-vous incontournable des amateurs de sport à la recherche de vêtements, chaussures et accessoires de marques reconnues comme Nike, Adidas et Asics."
+    },
+    "1": {
+        "vendorName": "Sandro",
+        "type": "brand",
+        "typeOfGoods": ["clothing", "shoes", "fashion accessories"],
+        "vendorDescription": "Sandro est synonyme d'élégance à la française, offrant des collections de prêt-à-porter haut de gamme pour hommes et femmes qui allient modernité et sophistication classique."
+    },
+    "2": {
+        "vendorName": "Devialet",
+        "type": "brand",
+        "typeOfGoods": ["high-end sound systems", "speakers", "audio technology"],
+        "vendorDescription": "Devialet est à la pointe de l'innovation audio avec ses enceintes et systèmes sonores de haute fidélité, conçus pour offrir une expérience d'écoute inégalée grâce à des technologies acoustiques révolutionnaires."
+    },
+    "3": {
+        "vendorName": "The Kooples",
+        "type": "brand",
+        "typeOfGoods": ["clothing", "accessories", "leather goods"],
+        "vendorDescription": "The Kooples est une marque française de mode urbaine, connue pour ses vêtements élégants et ses accessoires de qualité. Elle se distingue par son style rock et chic, avec une attention particulière aux détails et à l'artisanat."
+    },
+    "4": {
+        "vendorName": "ba&sh",
+        "type": "brand",
+        "typeOfGoods": ["women's clothing", "accessories"],
+        "vendorDescription": "ba&sh est une marque française emblématique offrant un vestiaire féminin qui célèbre la liberté et l'expression personnelle. Connue pour ses robes bohèmes et ses designs épurés, ba&sh allie confort et élégance dans ses collections."
+    }
+}

@@ -1,0 +1,57 @@
+@import "../../../theme/rules.scss";
+.formParrainage {
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    .inputCodeContainer {
+        display: flex;
+        justify-content: space-evenly;
+        align-items: center;
+        gap: 1rem;
+        margin: 2rem auto;
+        input {
+            all: unset;
+            width: 2.5rem;
+            height: 3rem;
+
+            text-align: center;
+            border-radius: 6px;
+            background: var(--ion-black-color);
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            color: var(--ion-text-color);
+            @include Ltext_02;
+        }
+    }
+    .submitButton {
+        @include button;
+        padding: 0.5rem 2rem;
+        width: 15rem;
+        margin: 0 auto;
+    }
+}
+
+.registerFormContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4.25rem;
+}
+.boxFormRegisterContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    @include boxSubscribeForm;
+    p {
+        margin: 0 auto;
+        margin-bottom: 1rem;
+        @include Ltext_02;
+        color: var(--ion-text-color);
+    }
+    padding: 0;
+    margin: 0;
+    box-shadow: unset;
+}

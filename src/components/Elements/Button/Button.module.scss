@@ -1,0 +1,11 @@
+@import "../../../../src/theme/rules.scss";
+
+.button {
+    @include button;
+}
+
+.large {
+    @include Ltext_01;
+    font-size: 2rem;
+    padding: 1rem;
+}

@@ -1,0 +1,285 @@
+//// TITLE ////
+
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@mixin title_01 {
+    font-family: DM Serif Display;
+    font-size: 3rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+@mixin title_02 {
+    font-family: DM Serif Display;
+    font-size: 2.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+@mixin title_03 {
+    font-family: Work Sans;
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+}
+
+@mixin title_04 {
+    font-family: Work Sans;
+    font-size: 2.25rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+@mixin title_05 {
+    font-family: Work Sans;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+@mixin title_06 {
+    font-family: DM Serif Text;
+    font-size: 1.5rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+@mixin title_07 {
+    font-family: Work Sans;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+}
+
+//// TEXT ////
+
+// --lARGE-- //
+@mixin Ltext_01 {
+    font-family: Work Sans;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+}
+
+@mixin Ltext_02 {
+    font-family: Work Sans;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+@mixin Ltext_03 {
+    font-family: Work Sans;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+@mixin Ltext_04 {
+    font-family: DM Serif Display;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+// --MEDIUM-- //
+@mixin Mtext_01 {
+    font-family: Work Sans;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+}
+@mixin Mtext_02 {
+    font-family: Work Sans;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+}
+@mixin Mtext_03 {
+    font-family: Work Sans;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+@mixin Mtext_04 {
+    font-family: DM Serif Display;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+// --ITALIC-- //
+@mixin Itext_01 {
+    font-family: Work Sans;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 400;
+    line-height: 150%;
+}
+@mixin Itext_02 {
+    font-family: Work Sans;
+    font-size: 1rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 150%;
+}
+@mixin Itext_03 {
+    font-family: Work Sans;
+    font-size: 0.75rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 150%;
+}
+
+// --SMALL-- //
+@mixin Stext_01 {
+    font-family: Work Sans;
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+}
+
+@mixin Stext_02 {
+    font-family: Work Sans;
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 150%;
+}
+
+@mixin Stext_03 {
+    font-family: Work Sans;
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+@mixin Stext_04 {
+    font-family: DM Serif Display;
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+}
+
+// --LINK-- //
+@mixin link_01 {
+    font-family: Work Sans;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 150%;
+    text-decoration-line: underline;
+}
+
+@mixin link_02 {
+    font-family: Work Sans;
+    font-size: 0.75rem;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 150%;
+    text-decoration-line: underline;
+}
+
+//// BUTTONS ////
+@mixin bigButtonText {
+    font-family: DM Serif Display;
+    font-size: 1rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+@mixin button {
+    border-radius: 0.8125rem;
+    border: solid 0.5px var(--ion-link-color);
+    box-sizing: border-box;
+    color: var(--ion-background-color);
+    cursor: pointer;
+    display: inline-block;
+    list-style: none;
+    outline: none;
+    padding: 0.5rem 5rem;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: baseline;
+    @include bigButtonText;
+    background-color: var(--ion-text-color);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+//// INPUTS ////
+
+* {
+    z-index: 0;
+}
+
+@mixin input {
+    width: 18.5rem;
+    display: flex;
+    justify-content: flex-start;
+    padding-bottom: 0.3125rem;
+    input {
+        all: unset;
+        text-align: start;
+        width: 90%;
+        @include Ltext_02;
+    }
+}
+
+@mixin basicInput {
+    @include input;
+    border-bottom: solid 1px var(--ion-secondary-text-color);
+    label {
+        width: 10%;
+        padding-right: 1rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    img {
+        width: 1rem;
+        height: 1rem;
+    }
+}
+@mixin searchInput {
+    @include input;
+    background-color: var(--ion-white-color);
+    border-radius: 1rem;
+    color: var(--ion-background-color);
+    padding: 0.5rem;
+    label {
+        width: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@mixin boxSubscribeForm {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    padding: 3.125rem 1rem;
+}
+
+.toastContainer {
+    top: 80%;
+    width: 80%;
+    position: absolute;
+}

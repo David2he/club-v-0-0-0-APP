@@ -1,0 +1,37 @@
+@import "../../theme/rules.scss";
+
+.bannerImgContainer {
+    width: 100%;
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+}
+
+.brandMainInfoContainer {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 1rem 0.5rem;
+
+    .logoImgContainer {
+        width: 4rem;
+    }
+    .brandName {
+        @include Ltext_01;
+        font-size: 2rem;
+        margin-bottom: 0;
+    }
+}
+
+.activeBrandButtonContainer {
+    position: sticky;
+    display: flex;
+    justify-content: center;
+    bottom: 0%;
+    padding-bottom: 1rem;
+}

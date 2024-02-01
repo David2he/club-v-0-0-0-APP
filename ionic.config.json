@@ -1,0 +1,7 @@
+{
+    "name": "club-v-0-0-0-APP",
+    "integrations": {
+        "capacitor": {}
+    },
+    "type": "react-vite"
+}
