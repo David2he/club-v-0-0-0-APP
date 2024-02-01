@@ -55,6 +55,7 @@ export const RegisterForm = () => {
                 message: "Erreur lors de l'enregistrement : " + error,
                 key: Date.now(),
             });
+        } finally {
         }
     };
 
@@ -129,19 +130,6 @@ export const RegisterForm = () => {
             }
         }
     };
-
-    // STEP 0
-    // const handleFormParrainageCode = () => {
-    //     const getCode = (code?: string) => {
-    //         if (!code) return;
-    //         setFormData((prevState) => ({
-    //             ...prevState,
-    //             parrainageCode: code,
-    //         }));
-    //     };
-    //     return <ParrainageCodeForm loginType='register' onCodeFetch={getCode} />;
-    // };
-
     // STEP 1
     const emailPasswordForm = () => {
         return (
