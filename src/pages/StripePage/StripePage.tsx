@@ -6,13 +6,13 @@ import { Elements } from "@stripe/react-stripe-js";
 // import "dotenv/config";
 
 const StripePage: React.FC = () => {
-    const stripePromise = loadStripe("pk_live_ybigacz6llYsIr7uxiuftLQN");
+    const stripePromise = loadStripe(import.meta.env.VITE_API_PUBLIC_KEY_STRIPE);
     return (
-        <IonPage id='main-content' className='container'>
-            <div className='headerContainer'>
+        <IonPage id="main-content" className="container">
+            <div className="headerContainer">
                 <Header />
             </div>
-            <div className='content'>
+            <div className="content">
                 <Elements stripe={stripePromise}>
                     <StripeCheckoutForm />
                 </Elements>

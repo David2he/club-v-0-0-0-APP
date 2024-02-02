@@ -2,7 +2,11 @@ import { useState, useRef } from "react";
 import style from "./RegisterForm.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
-import { RegisterFormDataStateProps, RegisterFormDataToSendType, toastType } from "../../../types/Types";
+import {
+    RegisterFormDataStateProps,
+    RegisterFormDataToSendType,
+    toastType,
+} from "../../../types/Types";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
 // import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
@@ -34,7 +38,7 @@ export const RegisterForm = () => {
                 nonce: formData.parrainageCode ? formData.parrainageCode : "",
             };
 
-            const response = await handlePostData("http://51.15.233.181:8000/api/users", {
+            const response = await handlePostData("https://lodge-api.aihclubs.com/api/users", {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -139,7 +143,7 @@ export const RegisterForm = () => {
                     altIcon={"iconMail"}
                     placeholder={"Mail"}
                     labelType={"email"}
-                    name='email'
+                    name="email"
                     value={formData.email}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -147,14 +151,14 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
                 <Input
                     iconURL={"assets/iconInput/password.svg"}
                     altIcon={"iconLock"}
                     placeholder={"Mot de passe"}
                     labelType={"password"}
-                    name='password'
+                    name="password"
                     value={formData.password}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -162,7 +166,7 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
             </>
         );
@@ -177,7 +181,7 @@ export const RegisterForm = () => {
                     altIcon={"iconMail"}
                     placeholder={"Nom"}
                     labelType={"fName"}
-                    name='fName'
+                    name="fName"
                     value={formData.fName}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -185,14 +189,14 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
                 <Input
                     iconURL={"assets/iconInput/identity.svg"}
                     altIcon={"iconLock"}
                     placeholder={"Prénom"}
                     labelType={"name"}
-                    name='name'
+                    name="name"
                     value={formData.name}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -200,14 +204,14 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
                 <Input
                     iconURL={"assets/iconInput/phone.svg"}
                     altIcon={"iconLock"}
                     placeholder={"+33 6 43 ......"}
                     labelType={"phone"}
-                    name='phone'
+                    name="phone"
                     value={formData.phone}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -215,7 +219,7 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
             </>
         );
@@ -240,7 +244,7 @@ export const RegisterForm = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type='classic'
+                            type="classic"
                         />
                     </div>
                 ))}

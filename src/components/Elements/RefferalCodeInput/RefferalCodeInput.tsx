@@ -11,11 +11,14 @@ export const RefferalCodeInput = ({ value }: any) => {
         const getRefferalCode = async () => {
             const token = await getStorageItem("token");
             try {
-                const data = await handleGetData("http://51.15.233.181:8000/api/user/referrals", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const data = await handleGetData(
+                    "https://lodge-api.aihclubs.com/api/user/referrals",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
                 console.log(data);
             } catch (error) {
                 console.log(error);
@@ -26,7 +29,7 @@ export const RefferalCodeInput = ({ value }: any) => {
 
     return (
         <div className={style.test}>
-            <input type='text' value={referralCode} readOnly />
+            <input type="text" value={referralCode} readOnly />
             <div className={style.copyInput}></div>
         </div>
     );

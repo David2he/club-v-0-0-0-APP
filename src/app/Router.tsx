@@ -22,14 +22,34 @@ const AppRouter: React.FC = () => {
             <Route exact path='/Payment' component={StripePage} />
             <ProtectedRoute
                 exact
-                path='/homePageMenber'
+                path="/homePageMenber"
                 authenticatedComponent={HomePageMenber}
                 unauthenticatedComponent={Home}
             />
-            <ProtectedRoute exact path='/' authenticatedComponent={HomePageMenber} unauthenticatedComponent={Home} />
-            <ProtectedRoute exact path='/Brand/:id' authenticatedComponent={Brand} unauthenticatedComponent={Home} />
-            <ProtectedRoute exact path='/Refferral' authenticatedComponent={Refferal} unauthenticatedComponent={Home} />
-            <ProtectedRoute exact path='/Account' authenticatedComponent={Account} unauthenticatedComponent={Home} />
+            <ProtectedRoute
+                exact
+                path="/"
+                authenticatedComponent={HomePageMenber}
+                unauthenticatedComponent={Home}
+            />
+            <ProtectedRoute
+                exact
+                path="/Brand/:id"
+                authenticatedComponent={Brand}
+                unauthenticatedComponent={Home}
+            />
+            <ProtectedRoute
+                exact
+                path="/Refferral"
+                authenticatedComponent={Refferal}
+                unauthenticatedComponent={Home}
+            />
+            <ProtectedRoute
+                exact
+                path="/Account"
+                authenticatedComponent={Account}
+                unauthenticatedComponent={Home}
+            />
         </IonRouterOutlet>
     );
 };

@@ -1,5 +1,5 @@
 import { CapacitorConfig } from "@capacitor/cli";
-// import "dotenv/config";
+
 const config: CapacitorConfig = {
     appId: "io.ionic.starter",
     appName: "club-v-0-0-0-APP",
@@ -9,7 +9,7 @@ const config: CapacitorConfig = {
     },
     plugins: {
         Stripe: {
-            publishableKey: "pk_live_ybigacz6llYsIr7uxiuftLQN",
+            publishableKey: import.meta.env.VITE_API_PUBLIC_KEY_STRIPE || "fallback_public_key",
         },
     },
 };
