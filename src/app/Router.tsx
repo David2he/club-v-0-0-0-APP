@@ -11,6 +11,7 @@ import Refferal from "../pages/Refferal/Refferal";
 import Account from "../pages/Account/Account";
 
 import { ProtectedRoute } from "../utils/Routing/ProtectedRoutes";
+import StripePage from "../pages/StripePage/StripePage";
 
 const AppRouter: React.FC = () => {
     return (
@@ -18,6 +19,7 @@ const AppRouter: React.FC = () => {
             <Route exact path='/home' component={Home} />
             <Route exact path='/register' component={Register} />
             <Route exact path='/RegisterFormContainer' component={RegisterFormContainer} />
+            <Route exact path='/Payment' component={StripePage} />
             <ProtectedRoute
                 exact
                 path='/homePageMenber'

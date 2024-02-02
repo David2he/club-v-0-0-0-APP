@@ -1,6 +1,6 @@
 import { IonPage } from "@ionic/react";
 import { Header } from "../../components/Blocks/Header/Header";
-import { ParrainageCodeForm } from "../../components/Elements/ParrainageCodeForm/ParrainageCodeForm";
+
 import { RegisterForm } from "../../components/Blocks/RegisterForm/RegisterForm";
 
 const RegisterFormContainer: React.FC = () => {
