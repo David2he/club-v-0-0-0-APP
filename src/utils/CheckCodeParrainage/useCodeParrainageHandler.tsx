@@ -62,7 +62,8 @@ export const useCodeParrainageHandler = (
         };
 
         if (goToUrl) {
-            openInBrowser(currentUrl);
+            // openInBrowser(currentUrl);
+            history.push("/RegisterFormContainer");
         } else {
             history.push("/RegisterFormContainer");
         }

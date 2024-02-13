@@ -5,13 +5,24 @@ import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
 import {
     RegisterFormDataStateProps,
     RegisterFormDataToSendType,
+    LoginFormDataToSendType,
     toastType,
 } from "../../../types/Types";
+import { useStorageServices } from "../../../services/storages/useStorageServices";
+import { useAuth } from "../../../services/contexts/AuthContext";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
 // import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
 
 export const RegisterForm = () => {
+    const { setStorageItem, getStorageItem } = useStorageServices();
+    const auth = useAuth();
+
+    if (!auth) {
+        throw new Error("Auth context is undefined");
+    }
+
+    const { login } = auth;
     const [step, setStep] = useState<number>(0);
     const currentUrl = new URL(window.location.href);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
@@ -26,7 +37,7 @@ export const RegisterForm = () => {
 
     const postRegisterForm = async () => {
         try {
-            const dataToSend: RegisterFormDataToSendType = {
+            const registerDataToSend: RegisterFormDataToSendType = {
                 email: formData.email,
                 password: formData.password,
                 userInfo: {
@@ -37,16 +48,31 @@ export const RegisterForm = () => {
                 },
                 nonce: formData.parrainageCode ? formData.parrainageCode : "",
             };
+            const loginDataToSend: LoginFormDataToSendType = {
+                username: formData.email,
+                password: formData.password,
+            };
 
-            const response = await handlePostData("https://lodge-api.aihclubs.com/api/users", {
+            const registerResponse = await handlePostData("https://lodge-api.aihclubs.com/api/users", {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify(dataToSend),
+                body: JSON.stringify(registerDataToSend),
             });
-            console.log(response.status);
-            if (response.status === 201) {
-                console.log(response.status);
+            console.log(registerResponse.status);
+            if (registerResponse.status === 201) {
+                console.log(registerResponse.status);
+                const loginResponse = await handlePostData("https://lodge-api.aihclubs.com/api/login", {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(loginDataToSend),
+                });
+                if (loginResponse.status === 200) {
+                    await setStorageItem("token", loginResponse.data.token);
+                    await setStorageItem("email", formData.email);
+                    login();
+                }
                 setshowToast({
                     type: "succes",
                     message: "Création de compte réussi",
@@ -143,7 +169,7 @@ export const RegisterForm = () => {
                     altIcon={"iconMail"}
                     placeholder={"Mail"}
                     labelType={"email"}
-                    name="email"
+                    name='email'
                     value={formData.email}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -151,14 +177,14 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type="classic"
+                    type='classic'
                 />
                 <Input
                     iconURL={"assets/iconInput/password.svg"}
                     altIcon={"iconLock"}
                     placeholder={"Mot de passe"}
                     labelType={"password"}
-                    name="password"
+                    name='password'
                     value={formData.password}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -166,7 +192,7 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type="classic"
+                    type='classic'
                 />
             </>
         );
@@ -181,7 +207,7 @@ export const RegisterForm = () => {
                     altIcon={"iconMail"}
                     placeholder={"Nom"}
                     labelType={"fName"}
-                    name="fName"
+                    name='fName'
                     value={formData.fName}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -189,14 +215,14 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type="classic"
+                    type='classic'
                 />
                 <Input
                     iconURL={"assets/iconInput/identity.svg"}
                     altIcon={"iconLock"}
                     placeholder={"Prénom"}
                     labelType={"name"}
-                    name="name"
+                    name='name'
                     value={formData.name}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -204,14 +230,14 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type="classic"
+                    type='classic'
                 />
                 <Input
                     iconURL={"assets/iconInput/phone.svg"}
                     altIcon={"iconLock"}
                     placeholder={"+33 6 43 ......"}
                     labelType={"phone"}
-                    name="phone"
+                    name='phone'
                     value={formData.phone}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -219,7 +245,7 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type="classic"
+                    type='classic'
                 />
             </>
         );
@@ -244,7 +270,7 @@ export const RegisterForm = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type="classic"
+                            type='classic'
                         />
                     </div>
                 ))}

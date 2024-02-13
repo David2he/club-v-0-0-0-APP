@@ -1,5 +1,6 @@
 import React from "react";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import style from "./StripeCheckoutForm.module.scss";
+import { CardElement, useStripe, useElements, PaymentElement } from "@stripe/react-stripe-js";
 
 export const StripeCheckoutForm: React.FC = () => {
     const stripe = useStripe();
@@ -30,6 +31,8 @@ export const StripeCheckoutForm: React.FC = () => {
     return (
         <form onSubmit={handleSubmit}>
             <CardElement />
+            <PaymentElement />
+            <p>test</p>
             <button type='submit' disabled={!stripe}>
                 Payer
             </button>
