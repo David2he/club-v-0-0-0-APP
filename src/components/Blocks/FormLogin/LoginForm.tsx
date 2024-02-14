@@ -7,9 +7,9 @@ import { handlePostData } from "../../../services/api";
 import { LoginFormDataToSendType } from "../../../types/Types";
 import { Toast } from "../Toast/Toast";
 import { toastType } from "../../../types/Types";
-import style from "./FormLogin.module.scss";
+import style from "./LoginForm.module.scss";
 
-export const FormLogin = () => {
+export const LoginForm = () => {
     const { setStorageItem, getStorageItem } = useStorageServices();
     const [formData, setFormData] = useState({ email: "", password: "" });
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });

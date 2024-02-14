@@ -31,7 +31,7 @@ export const StripeCheckoutForm: React.FC = () => {
     return (
         <form onSubmit={handleSubmit}>
             <CardElement />
-            <PaymentElement />
+            {/* <PaymentElement /> */}
             <p>test</p>
             <button type='submit' disabled={!stripe}>
                 Payer

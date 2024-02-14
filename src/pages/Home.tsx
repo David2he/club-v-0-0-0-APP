@@ -1,5 +1,5 @@
 import { IonPage } from "@ionic/react";
-import { FormLogin } from "../components/Blocks/FormLogin/FormLogin";
+import { LoginForm } from "../components/Blocks/FormLogin/LoginForm";
 import { Header } from "../components/Blocks/Header/Header";
 import { ParrainageCodeLoginChoice } from "../components/Blocks/ParrainageCodeLoginChoice/ParrainageCodeLoginChoice";
 import "./Home.scss";
@@ -10,7 +10,7 @@ const Home: React.FC = () => {
             <div className='headerContainer'>
                 <Header />
             </div>
-            <FormLogin />
+            <LoginForm />
             <ParrainageCodeLoginChoice />
         </IonPage>
     );

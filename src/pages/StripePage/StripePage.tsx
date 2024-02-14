@@ -7,16 +7,14 @@ import { Elements } from "@stripe/react-stripe-js";
 
 const StripePage: React.FC = () => {
     const stripePromise = loadStripe(import.meta.env.VITE_API_PUBLIC_KEY_STRIPE);
-    const options = {
-        clientSecret: "{{CLIENT_SECRET}}",
-    };
+
     return (
         <IonPage id='main-content' className='container'>
             <div className='headerContainer'>
                 <Header />
             </div>
             <div className='content'>
-                <Elements stripe={stripePromise} options={options}>
+                <Elements stripe={stripePromise}>
                     <StripeCheckoutForm />
                 </Elements>
             </div>
