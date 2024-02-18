@@ -17,31 +17,31 @@ const AppRouter: React.FC = () => {
     return (
         <IonRouterOutlet animated={false}>
             {/* <Route exact path='/register' component={Register} /> */}
-            <Route exact path='/RegisterFormContainer' component={RegisterFormContainer} />
+            <Route exact path="/RegisterFormContainer" component={RegisterFormContainer} />
             <ProtectedRoute
                 exact
-                path='/SubscriptionPage'
+                path="/SubscriptionPage"
                 visitorComponent={Home}
-                loggedInComponent={SubscriptionPage}
-                memberLoggedInComponent={SubscriptionPage}
+                loggedInComponent={StripePage}
+                memberLoggedInComponent={StripePage}
             />
             <ProtectedRoute
                 exact
-                path='/'
+                path="/"
                 visitorComponent={Home}
-                loggedInComponent={SubscriptionPage}
+                loggedInComponent={StripePage}
                 memberLoggedInComponent={HomePageMenber}
             />
             <ProtectedRoute
                 exact
-                path='/Brand/:id'
+                path="/Brand/:id"
                 visitorComponent={Home}
                 loggedInComponent={SubscriptionPage}
                 memberLoggedInComponent={Brand}
             />
             <ProtectedRoute
                 exact
-                path='/Refferral'
+                path="/Refferral"
                 visitorComponent={Home}
                 loggedInComponent={SubscriptionPage}
                 memberLoggedInComponent={Refferal}

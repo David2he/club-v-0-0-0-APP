@@ -113,3 +113,12 @@ export interface MyToken {
     name: string;
     exp: number;
 }
+
+export interface StripeCheckoutFormProps {
+    clientSecret: string;
+}
+
+export interface StripePaymentContextType {
+    clientSecret: string;
+    setClientSecret: React.Dispatch<React.SetStateAction<string>>;
+}
