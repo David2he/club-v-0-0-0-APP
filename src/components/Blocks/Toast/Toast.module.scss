@@ -71,6 +71,7 @@
 }
 
 .closeLog {
+    pointer-events: none;
     animation: closeLog 0.5s ease-in-out forwards;
 }
 

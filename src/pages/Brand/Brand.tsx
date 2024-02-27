@@ -12,6 +12,7 @@ import data from "../../utils/dataTest/data.json";
 import style from "./Brand.module.scss";
 import { toastType } from "../../types/Types";
 import { useAuth } from "../../services/contexts/AuthContext";
+import { Footer } from "../../components/Blocks/Footer/Footer";
 const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
@@ -26,7 +27,7 @@ const Brand: React.FC = () => {
     const handleActivateVIP = async () => {
         const token = await getStorageItem("token");
 
-        console.log(token);
+        // console.log(token);
         console.log(auth?.user);
         try {
             const response = await handlePostData(

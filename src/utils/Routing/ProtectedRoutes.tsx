@@ -11,9 +11,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 }) => {
     const auth = useAuth();
 
-    const baseRoute = () => <Route exact path='/home' component={Home} />;
+    const baseRoute = () => <Route exact path="/home" component={Home} />;
     let ComponentToRender: React.ComponentType<any> = VisitorComponent || baseRoute;
+
     if (auth) {
+        console.log("auth.isMember", auth.isMember, );
         if (auth.isAuthenticated && auth.isMember && MemberLoggedInComponent) {
             ComponentToRender = MemberLoggedInComponent;
         } else if (auth.isAuthenticated && LoggedInComponent) {

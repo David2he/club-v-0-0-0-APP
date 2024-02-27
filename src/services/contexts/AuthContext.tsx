@@ -3,7 +3,6 @@ import { useStorageServices } from "../storages/useStorageServices";
 import { AuthContextType, UserType } from "../../types/Types";
 import { decodeToken } from "react-jwt";
 
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => useContext(AuthContext);
 
@@ -12,6 +11,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         !!localStorage.getItem("token")
     );
     const [isMember, setIsMember] = useState<boolean>(!!localStorage.getItem("isMember"));
+    console.log(isMember);
 
     const { getStorageItem } = useStorageServices();
     const [user, setUser] = useState<UserType | null>(null);
@@ -35,7 +35,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     const autoCheckToken = async () => {
         const token = await getStorageItem("token");
-        if (token) {
+        const isMember = await getStorageItem("isMember");
+        console.log(token);
+        if (isMember && token) {
+            setIsAuthenticated(true);
+            checkSubscribe();
+        } else if (token) {
             setIsAuthenticated(true);
         }
     };
@@ -60,9 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         <AuthContext.Provider
             value={{ isAuthenticated, isMember, user, login, logout, checkSubscribe }}
         >
-         
-                {children}
-        
+            {children}
         </AuthContext.Provider>
     );
 };

@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import style from "./RegisterForm.module.scss";
 import { Input } from "../../Elements/Input/Input";
+import { useHistory } from "react-router";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
 import {
     RegisterFormDataStateProps,
@@ -12,10 +13,12 @@ import { useStorageServices } from "../../../services/storages/useStorageService
 import { useAuth } from "../../../services/contexts/AuthContext";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
-// import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
+import { BlockText } from "../../Elements/BlockText/BlockText";
 
 export const RegisterForm = () => {
-    const { setStorageItem, getStorageItem } = useStorageServices();
+    const history = useHistory();
+    const { setStorageItem } = useStorageServices();
+    const [isChecked, setIsChecked] = useState(false);
     const auth = useAuth();
 
     if (!auth) {
@@ -35,6 +38,21 @@ export const RegisterForm = () => {
         parrainageCode: currentUrl.searchParams.get("code") ?? "",
     });
 
+    const handleOnChange = () => {
+        setIsChecked(!isChecked);
+    };
+
+    // const inputCGU = (): JSX.Element => {
+    //     return (
+    //         <div>
+    //             <label>
+    //                 <input type="checkbox" checked={isChecked} onChange={handleOnChange} />
+    //                 Cochez-moi
+    //             </label>
+    //         </div>
+    //     );
+    // };
+
     const postRegisterForm = async () => {
         try {
             const registerDataToSend: RegisterFormDataToSendType = {
@@ -52,7 +70,14 @@ export const RegisterForm = () => {
                 username: formData.email,
                 password: formData.password,
             };
-
+            if (isChecked === false) {
+                setshowToast({
+                    type: "error",
+                    message: "Vous devez accepter les CGU",
+                    key: Date.now(),
+                });
+                return;
+            }
             const registerResponse = await handlePostData(
                 "https://lodge-api.aihclubs.com/api/users",
                 {
@@ -78,6 +103,7 @@ export const RegisterForm = () => {
                     await setStorageItem("token", loginResponse.data.token);
                     await setStorageItem("email", formData.email);
                     login();
+                    history.push("/SubscriptionPage");
                 }
                 setshowToast({
                     type: "succes",
@@ -280,6 +306,10 @@ export const RegisterForm = () => {
                         />
                     </div>
                 ))}
+                <label>
+                    <input type="checkbox" checked={isChecked} onChange={handleOnChange} />
+                    Cochez-moi pour accepter les CGU
+                </label>
             </>
         );
     };

@@ -1,0 +1,52 @@
+@import "../../theme/rules.scss";
+
+.allSubscibeContainer {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 4rem;
+}
+.subscribeChoiceContainer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    width: 60%;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    cursor: pointer;
+}
+.priceText {
+    @include Ltext_01;
+    color: var(--ion-text-color);
+    font-size: 3rem;
+    margin: 0;
+}
+
+.titleOffre {
+    @include Mtext_02;
+    color: var(--ion-white-color);
+    font-size: 1rem;
+    margin-top: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .allSubscibeContainer {
+        width: 100%;
+        gap: 2rem;
+    }
+    .subscribeChoiceContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 80%;
+        text-align: center;
+        .priceText {
+            font-size: 2rem;
+        }
+    }
+}

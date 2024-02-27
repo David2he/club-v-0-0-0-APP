@@ -9,29 +9,22 @@ const Refferal: React.FC = () => {
     const getRefferalCode = (): JSX.Element => {
         return (
             <>
-                <RefferalCodeInput value={123456} />
+                <RefferalCodeInput />
             </>
         );
     };
     return (
-        <IonPage id='main-content' className='containerMainAPP'>
-            <div className='content'>
+        <IonPage id="main-content" className="containerMainAPP">
+            <div className="content">
                 <HamburguerMenue />
                 <Header />
                 <div>
-                    <BlockText title='Code Parrainage ' text={getRefferalCode} closable={false} expandable={false} />
-                    {/* <BlockText
-                        title="Code Parrainage "
-                        text={getRefferalCode}
-                        closable={false}
-                        expandable={false}
-                    />
                     <BlockText
                         title="Code Parrainage "
                         text={getRefferalCode}
                         closable={false}
                         expandable={false}
-                    /> */}
+                    />
                 </div>
             </div>
         </IonPage>
