@@ -16,8 +16,8 @@ const Account: React.FC = () => {
         phone: "",
     });
     return (
-        <IonPage id='main-content' className='containerMainAPP'>
-            <div className='content'>
+        <IonPage id="main-content" className="containerMainAPP">
+            <div className="content">
                 <HamburguerMenue />
                 <Header />
                 <div className={style.accountContainer}>
@@ -57,7 +57,7 @@ const Account: React.FC = () => {
                             altIcon={"iconLock"}
                             placeholder={"Prénom"}
                             labelType={"name"}
-                            name='name'
+                            name="name"
                             value={formData.name}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -65,14 +65,14 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type='classic'
+                            type="classic"
                         />
                         <Input
                             iconURL={"assets/iconInput/identity.svg"}
                             altIcon={"iconMail"}
                             placeholder={"Nom"}
                             labelType={"fName"}
-                            name='fName'
+                            name="fName"
                             value={formData.fName}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -80,14 +80,14 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type='classic'
+                            type="classic"
                         />
                         <Input
                             iconURL={"assets/iconInput/phone.svg"}
                             altIcon={"iconLock"}
                             placeholder={"+33 6 43 ......"}
                             labelType={"phone"}
-                            name='phone'
+                            name="phone"
                             value={formData.phone}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -95,10 +95,9 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type='classic'
+                            type="classic"
                         />
                     </div>
-                    <p>Pour changer d'avantage d'information, rendez vous sur notre site</p>
                 </div>
             </div>
         </IonPage>

@@ -12,6 +12,7 @@
         "lint": "eslint"
     },
     "dependencies": {
+        "@capacitor-community/stripe": "^5.4.2",
         "@capacitor/android": "5.2.2",
         "@capacitor/app": "5.0.6",
         "@capacitor/browser": "^5.0.6",
@@ -23,9 +24,12 @@
         "@ionic/react": "^7.2.2",
         "@ionic/react-router": "^7.2.2",
         "@ionic/storage": "^4.0.0",
+        "@stripe/react-stripe-js": "^2.4.0",
+        "@stripe/stripe-js": "^2.4.0",
         "@types/react-router": "^5.1.20",
         "@types/react-router-dom": "^5.3.3",
         "axios": "^1.4.0",
+        "dotenv": "^16.4.1",
         "ionicons": "^7.0.0",
         "jwt-decode": "^4.0.0",
         "react": "^18.2.0",

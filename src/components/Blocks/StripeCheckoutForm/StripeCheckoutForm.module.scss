@@ -1,0 +1,21 @@
+@import "../../../theme/rules.scss";
+
+.formPayment {
+    width: 80vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.button {
+    @include button;
+}
+
+@media screen and (max-width: 768px) {
+    .formPayment {
+        width: 100vw;
+        gap: 2rem;
+    }
+}

@@ -7,9 +7,9 @@ import { handlePostData } from "../../../services/api";
 import { LoginFormDataToSendType } from "../../../types/Types";
 import { Toast } from "../Toast/Toast";
 import { toastType } from "../../../types/Types";
-import style from "./FormLogin.module.scss";
+import style from "./LoginForm.module.scss";
 
-export const FormLogin = () => {
+export const LoginForm = () => {
     const { setStorageItem, getStorageItem } = useStorageServices();
     const [formData, setFormData] = useState({ email: "", password: "" });
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
@@ -41,7 +41,7 @@ export const FormLogin = () => {
                 password: formData.password,
             };
 
-            const response = await handlePostData("http://51.15.233.181:8000/api/login", {
+            const response = await handlePostData("https://lodge-api.aihclubs.com/api/login", {
                 headers: {
                     "Content-Type": "application/json",
                 },

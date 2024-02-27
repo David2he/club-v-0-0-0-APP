@@ -22,7 +22,7 @@ export const useCodeParrainageHandler = (
             firstRender.current = false;
         });
         if (onCodeFetch) {
-            onCodeFetch(codeFromUrl); // Appeler onCodeFetch ici avec le code de l'URL
+            onCodeFetch(codeFromUrl);
         }
     }
     const fetchCurrentCode = () => {
@@ -54,18 +54,14 @@ export const useCodeParrainageHandler = (
     const onSubmitForm = async (e: React.FormEvent) => {
         e.preventDefault();
         const code = inputRefs.current.map((input) => input?.value).join("");
-        const openInBrowser = async (currentUrl: URL) => {
-            const newUrl = currentUrl.origin + "/RegisterFormContainer";
-            await Browser.open({
-                url: `${newUrl}?code=${code}`,
-            });
-        };
+        // const openInBrowser = async (currentUrl: URL) => {
+        //     const newUrl = currentUrl.origin + "/RegisterFormContainer";
+        //     await Browser.open({
+        //         url: `${newUrl}?code=${code}`,
+        //     });
+        // };
 
-        if (goToUrl) {
-            openInBrowser(currentUrl);
-        } else {
-            history.push("/RegisterFormContainer");
-        }
+        history.push(`/RegisterFormContainer?code=${code}`);
     };
 
     useEffect(() => {
@@ -111,6 +107,6 @@ export const useCodeParrainageHandler = (
         inputRefs,
         onSubmitForm,
         getCurrentCode,
-        fetchCurrentCode, // Exposez la nouvelle fonction
+        fetchCurrentCode,
     };
 };

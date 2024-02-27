@@ -1,0 +1,19 @@
+@import "../../../theme/rules.scss";
+.inputContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin: 2rem;
+    p {
+        @include Mtext_03;
+        color: var(--ion-text-color);
+        font-size: 1rem;
+        margin: 0;
+        text-align: center;
+    }
+}
+.copyButton {
+    @include button;
+}

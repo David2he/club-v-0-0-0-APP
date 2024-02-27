@@ -3,7 +3,7 @@ import { handleGetData } from "../../../services/api";
 import { useStorageServices } from "../../../services/storages/useStorageServices";
 import style from "./RefferalCodeInput.module.scss";
 
-export const RefferalCodeInput = ({ value }: any) => {
+export const RefferalCodeInput = () => {
     const { getStorageItem } = useStorageServices();
     const [referralCode, setReferralCode] = useState("12345");
 
@@ -11,12 +11,16 @@ export const RefferalCodeInput = ({ value }: any) => {
         const getRefferalCode = async () => {
             const token = await getStorageItem("token");
             try {
-                const data = await handleGetData("http://51.15.233.181:8000/api/user/referrals", {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                console.log(data);
+                const response = await handleGetData(
+                    "https://lodge-api.aihclubs.com/api/user/referrals",
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                setReferralCode(response.data[0].nonce);
             } catch (error) {
                 console.log(error);
             }
@@ -24,10 +28,23 @@ export const RefferalCodeInput = ({ value }: any) => {
         getRefferalCode();
     }, []);
 
+    const copyToClipboard = async (e) => {
+        try {
+            await navigator.clipboard.writeText(referralCode);
+        } catch (err) {
+            console.error("Failed to copy!", err);
+        }
+    };
+
     return (
-        <div className={style.test}>
-            <input type='text' value={referralCode} readOnly />
+        <div className={style.inputContainer}>
+            <input type="text" value={referralCode} readOnly />
             <div className={style.copyInput}></div>
+            <button onClick={copyToClipboard} className={style.copyButton}>
+                Copier le code
+            </button>
+            <p>Vous pouvez faire profiter de ce code unique a l'un de vos contact</p>
+            <p>Envoyer lui votre code</p>
         </div>
     );
 };

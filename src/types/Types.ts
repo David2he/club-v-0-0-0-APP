@@ -78,8 +78,10 @@ export type BlockTextProps = {
 };
 
 export interface ProtectedRouteProps extends RouteProps {
-    authenticatedComponent: React.ComponentType<any>;
-    unauthenticatedComponent: React.ComponentType<any>;
+    visitorComponent: React.ComponentType<any>;
+    loggedInComponent?: React.ComponentType<any>;
+    memberLoggedInComponent: React.ComponentType<any>;
+    requiredState?: string[];
 }
 
 export interface UserType {
@@ -88,9 +90,12 @@ export interface UserType {
 }
 export interface AuthContextType {
     isAuthenticated: boolean;
+    isMember: boolean;
     user: UserType | null;
     login: () => void;
     logout: () => void;
+    checkSubscribe: () => void;
+    [key: string]: any;
 }
 
 export type RedirectProps = {
@@ -107,4 +112,13 @@ export interface CodeParrainageType {
 export interface MyToken {
     name: string;
     exp: number;
+}
+
+export interface StripeCheckoutFormProps {
+    clientSecret: string;
+}
+
+export interface StripePaymentContextType {
+    clientSecret: string;
+    setClientSecret: React.Dispatch<React.SetStateAction<string>>;
 }

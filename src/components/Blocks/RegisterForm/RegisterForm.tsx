@@ -1,13 +1,31 @@
 import { useState, useRef } from "react";
 import style from "./RegisterForm.module.scss";
 import { Input } from "../../Elements/Input/Input";
+import { useHistory } from "react-router";
 import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
-import { RegisterFormDataStateProps, RegisterFormDataToSendType, toastType } from "../../../types/Types";
+import {
+    RegisterFormDataStateProps,
+    RegisterFormDataToSendType,
+    LoginFormDataToSendType,
+    toastType,
+} from "../../../types/Types";
+import { useStorageServices } from "../../../services/storages/useStorageServices";
+import { useAuth } from "../../../services/contexts/AuthContext";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
-// import { ParrainageCodeForm } from "../../Elements/ParrainageCodeForm/ParrainageCodeForm";
+import { BlockText } from "../../Elements/BlockText/BlockText";
 
 export const RegisterForm = () => {
+    const history = useHistory();
+    const { setStorageItem } = useStorageServices();
+    const [isChecked, setIsChecked] = useState(false);
+    const auth = useAuth();
+
+    if (!auth) {
+        throw new Error("Auth context is undefined");
+    }
+
+    const { login } = auth;
     const [step, setStep] = useState<number>(0);
     const currentUrl = new URL(window.location.href);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
@@ -20,9 +38,24 @@ export const RegisterForm = () => {
         parrainageCode: currentUrl.searchParams.get("code") ?? "",
     });
 
+    const handleOnChange = () => {
+        setIsChecked(!isChecked);
+    };
+
+    // const inputCGU = (): JSX.Element => {
+    //     return (
+    //         <div>
+    //             <label>
+    //                 <input type="checkbox" checked={isChecked} onChange={handleOnChange} />
+    //                 Cochez-moi
+    //             </label>
+    //         </div>
+    //     );
+    // };
+
     const postRegisterForm = async () => {
         try {
-            const dataToSend: RegisterFormDataToSendType = {
+            const registerDataToSend: RegisterFormDataToSendType = {
                 email: formData.email,
                 password: formData.password,
                 userInfo: {
@@ -33,16 +66,45 @@ export const RegisterForm = () => {
                 },
                 nonce: formData.parrainageCode ? formData.parrainageCode : "",
             };
-
-            const response = await handlePostData("http://51.15.233.181:8000/api/users", {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(dataToSend),
-            });
-            console.log(response.status);
-            if (response.status === 201) {
-                console.log(response.status);
+            const loginDataToSend: LoginFormDataToSendType = {
+                username: formData.email,
+                password: formData.password,
+            };
+            if (isChecked === false) {
+                setshowToast({
+                    type: "error",
+                    message: "Vous devez accepter les CGU",
+                    key: Date.now(),
+                });
+                return;
+            }
+            const registerResponse = await handlePostData(
+                "https://lodge-api.aihclubs.com/api/users",
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(registerDataToSend),
+                }
+            );
+            console.log(registerResponse.status);
+            if (registerResponse.status === 201) {
+                console.log(registerResponse.status);
+                const loginResponse = await handlePostData(
+                    "https://lodge-api.aihclubs.com/api/login",
+                    {
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(loginDataToSend),
+                    }
+                );
+                if (loginResponse.status === 200) {
+                    await setStorageItem("token", loginResponse.data.token);
+                    await setStorageItem("email", formData.email);
+                    login();
+                    history.push("/SubscriptionPage");
+                }
                 setshowToast({
                     type: "succes",
                     message: "Création de compte réussi",
@@ -55,6 +117,7 @@ export const RegisterForm = () => {
                 message: "Erreur lors de l'enregistrement : " + error,
                 key: Date.now(),
             });
+        } finally {
         }
     };
 
@@ -129,19 +192,6 @@ export const RegisterForm = () => {
             }
         }
     };
-
-    // STEP 0
-    // const handleFormParrainageCode = () => {
-    //     const getCode = (code?: string) => {
-    //         if (!code) return;
-    //         setFormData((prevState) => ({
-    //             ...prevState,
-    //             parrainageCode: code,
-    //         }));
-    //     };
-    //     return <ParrainageCodeForm loginType='register' onCodeFetch={getCode} />;
-    // };
-
     // STEP 1
     const emailPasswordForm = () => {
         return (
@@ -151,7 +201,7 @@ export const RegisterForm = () => {
                     altIcon={"iconMail"}
                     placeholder={"Mail"}
                     labelType={"email"}
-                    name='email'
+                    name="email"
                     value={formData.email}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -159,14 +209,14 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
                 <Input
                     iconURL={"assets/iconInput/password.svg"}
                     altIcon={"iconLock"}
                     placeholder={"Mot de passe"}
                     labelType={"password"}
-                    name='password'
+                    name="password"
                     value={formData.password}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -174,7 +224,7 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
             </>
         );
@@ -189,7 +239,7 @@ export const RegisterForm = () => {
                     altIcon={"iconMail"}
                     placeholder={"Nom"}
                     labelType={"fName"}
-                    name='fName'
+                    name="fName"
                     value={formData.fName}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -197,14 +247,14 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
                 <Input
                     iconURL={"assets/iconInput/identity.svg"}
                     altIcon={"iconLock"}
                     placeholder={"Prénom"}
                     labelType={"name"}
-                    name='name'
+                    name="name"
                     value={formData.name}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -212,14 +262,14 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
                 <Input
                     iconURL={"assets/iconInput/phone.svg"}
                     altIcon={"iconLock"}
                     placeholder={"+33 6 43 ......"}
                     labelType={"phone"}
-                    name='phone'
+                    name="phone"
                     value={formData.phone}
                     onChange={(e) =>
                         setFormData((prevState) => ({
@@ -227,7 +277,7 @@ export const RegisterForm = () => {
                             [e.target.name]: e.target.value,
                         }))
                     }
-                    type='classic'
+                    type="classic"
                 />
             </>
         );
@@ -252,10 +302,14 @@ export const RegisterForm = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type='classic'
+                            type="classic"
                         />
                     </div>
                 ))}
+                <label>
+                    <input type="checkbox" checked={isChecked} onChange={handleOnChange} />
+                    Cochez-moi pour accepter les CGU
+                </label>
             </>
         );
     };

@@ -11,7 +11,7 @@ export const ParrainageCodeLoginChoice = () => {
             </div>
             <p>J'ai un code de parrainage</p>
             <div>
-                <ParrainageCodeForm goToUrl='register' loginType='login' />
+                <ParrainageCodeForm goToUrl="register" loginType="login" />
             </div>
         </div>
     );
