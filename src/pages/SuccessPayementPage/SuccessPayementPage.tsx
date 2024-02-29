@@ -10,12 +10,13 @@ const SuccessPayementPage: React.FC = () => {
     if (!auth) {
         throw new Error("Auth context is undefined");
     }
+
     const { checkSubscribe } = auth;
-    const { setStorageItem, getStorageItem } = useStorageServices();
+    const { setStorageItem } = useStorageServices();
     const handleUserPay = async () => {
         await setStorageItem("isMember", "true");
         checkSubscribe();
-        history.push("/");
+        history.push("/HomePageMember");
     };
     return (
         <IonPage id="main-content" className="container">

@@ -7,7 +7,7 @@ export const DisplayItemsHomePageMenber = () => {
     const history = useHistory();
     const displayThemAll = (): JSX.Element => {
         const navigateToBrand = (brandId: number) => {
-            history.push(`/Brand/${brandId}`);
+            history.push(`/HomePageMember/Brand/${brandId}`);
         };
         return (
             <>
@@ -16,24 +16,36 @@ export const DisplayItemsHomePageMenber = () => {
                         className={`${style.displayImgContainer} ${style.displayThemInline}`}
                         onClick={() => setTypeOFdisplay("line")}
                     >
-                        <img src={`./assets/iconBlockText/${typeOFdisplay === "line" ? "line_filled" : "line"}.svg`} />
+                        <img
+                            src={`./assets/iconBlockText/${
+                                typeOFdisplay === "line" ? "line_filled" : "line"
+                            }.svg`}
+                        />
                     </div>
                     <div
                         className={`${style.displayImgContainer} ${style.displayThemBlock}`}
                         onClick={() => setTypeOFdisplay("block")}
                     >
                         <img
-                            src={`./assets/iconBlockText/${typeOFdisplay === "block" ? "block_filled" : "block"}.svg`}
+                            src={`./assets/iconBlockText/${
+                                typeOFdisplay === "block" ? "block_filled" : "block"
+                            }.svg`}
                         />
                     </div>
                 </div>
                 <div
                     className={`${style.contentContainer} ${
-                        typeOFdisplay === "block" ? style.containerBlockDisplay : style.containerLineDisplay
+                        typeOFdisplay === "block"
+                            ? style.containerBlockDisplay
+                            : style.containerLineDisplay
                     }`}
                 >
                     {Array.from(Array(5).keys()).map((item, index) => (
-                        <div key={index} className={style.eachCells} onClick={() => navigateToBrand(index)}>
+                        <div
+                            key={index}
+                            className={style.eachCells}
+                            onClick={() => navigateToBrand(index)}
+                        >
                             <img src={`./assets/Brand/${index}/lineImg.png`} />
                         </div>
                     ))}
@@ -44,7 +56,7 @@ export const DisplayItemsHomePageMenber = () => {
 
     return (
         <div>
-            <BlockText title='Nos marques' text={displayThemAll} closable={false} />
+            <BlockText title="Nos marques" text={displayThemAll} closable={false} />
         </div>
     );
 };

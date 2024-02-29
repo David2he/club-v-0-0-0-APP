@@ -84,12 +84,28 @@ export interface ProtectedRouteProps extends RouteProps {
     requiredState?: string[];
 }
 
+export interface UserInfoType {
+    firstName: string;
+    lastName: string;
+    birthday: string;
+    phoneNumber: string;
+    civilite: string;
+    pays: string;
+    ville: string;
+    codePostal: string;
+    adresse1: string;
+}
 export interface UserType {
     token: string;
     email: string;
+    id: number;
+    roles: string[];
+    userInfo: UserInfoType;
+    isAdmin: boolean;
+    isBrandAdmin: boolean;
 }
 export interface AuthContextType {
-    isAuthenticated: boolean;
+    isLogin: boolean;
     isMember: boolean;
     user: UserType | null;
     login: () => void;

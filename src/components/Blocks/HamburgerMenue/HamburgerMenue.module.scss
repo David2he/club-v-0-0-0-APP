@@ -44,6 +44,7 @@
             color: var(--ion-text-color);
             @include title_06;
             font-weight: bolder;
+            cursor: pointer;
         }
     }
     .openMenu {

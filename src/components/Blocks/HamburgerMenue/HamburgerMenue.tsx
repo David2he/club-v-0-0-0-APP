@@ -1,7 +1,8 @@
 import style from "./HamburgerMenue.module.scss";
 import { useState, useRef, useEffect } from "react";
 import { useHistory } from "react-router";
-import { useClearToken } from "../../../utils/useClearToken/useClearToken";
+import { useStorageServices } from "../../../services/storages/useStorageServices";
+
 export const HamburguerMenue = () => {
     const history = useHistory();
     const hamburgerMenueRef = useRef<HTMLDivElement>(null);
@@ -9,7 +10,12 @@ export const HamburguerMenue = () => {
     const navigate = (where: string) => {
         history.push(where);
     };
-    const { clearToken } = useClearToken();
+    const { clearStorage } = useStorageServices();
+
+    const disconnect = () => {
+        clearStorage();
+        history.push("/");
+    };
 
     useEffect(() => {
         const handleClickOutsideHamburgerMenue = (e: any) => {
@@ -24,17 +30,24 @@ export const HamburguerMenue = () => {
     }, [hamburgerMenueRef]);
     return (
         <div className={style.container} ref={hamburgerMenueRef}>
-            <div className={style.hamburgerIcon} onClick={() => setOpnMenu((prevOpnMenu) => !prevOpnMenu)}>
+            <div
+                className={style.hamburgerIcon}
+                onClick={() => setOpnMenu((prevOpnMenu) => !prevOpnMenu)}
+            >
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div className={`${style.containerHamburger} ${opnMenu ? style.openMenu : style.closeMenu}`}>
-                <p onClick={() => navigate("/")}>Accueil</p>
+            <div
+                className={`${style.containerHamburger} ${
+                    opnMenu ? style.openMenu : style.closeMenu
+                }`}
+            >
+                <p onClick={() => navigate("/HomePageMember")}>Accueil</p>
                 <p onClick={() => navigate("/Account")}>Mon compte</p>
                 <p onClick={() => navigate("/Refferral")}>Parrainer</p>
                 <p>Contact</p>
-                <p onClick={() => clearToken()}>Clear Cache</p>
+                <p onClick={() => disconnect()}>Se deconnecter</p>
             </div>
         </div>
     );

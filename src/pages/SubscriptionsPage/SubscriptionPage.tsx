@@ -21,13 +21,18 @@ const SubscriptionPage: React.FC = () => {
     useEffect(() => {
         const getSubscriptionsOffer = async () => {
             try {
+                const token = await getStorageItem("token");
                 const response = await handleGetData(
                     "https://lodge-api.aihclubs.com/api/subscriptions",
                     {
-                        headers: {},
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
                     }
                 );
-                setSubscriptionItems(response.data["hydra:member"]);
+                console.log(response.data);
+                setSubscriptionItems(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -51,7 +56,7 @@ const SubscriptionPage: React.FC = () => {
             });
             console.log(response);
             await setStorageItem("clientSecret", response.data.clientSecret);
-            history.push("/paymentPage");
+            history.push("/PaymentPage");
         } catch (error) {
             console.log(error + "error");
         }

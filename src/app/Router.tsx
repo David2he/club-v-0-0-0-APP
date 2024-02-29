@@ -31,7 +31,14 @@ const AppRouter: React.FC = () => {
                     path="/SubscriptionPage"
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
-                    memberLoggedInComponent={SubscriptionPage}
+                    memberLoggedInComponent={HomePageMenber}
+                />
+                <ProtectedRoute
+                    exact
+                    path="/PaymentPage"
+                    visitorComponent={Home}
+                    loggedInComponent={StripePage}
+                    memberLoggedInComponent={StripePage}
                 />
                 <ProtectedRoute
                     exact
@@ -42,21 +49,21 @@ const AppRouter: React.FC = () => {
                 />
                 <ProtectedRoute
                     exact
-                    path="/paymentPage"
+                    path="/"
                     visitorComponent={Home}
-                    loggedInComponent={StripePage}
-                    memberLoggedInComponent={StripePage}
+                    loggedInComponent={Home}
+                    memberLoggedInComponent={HomePageMenber}
                 />
                 <ProtectedRoute
                     exact
-                    path="/"
+                    path="/HomePageMember"
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
                     memberLoggedInComponent={HomePageMenber}
                 />
                 <ProtectedRoute
                     exact
-                    path="/Brand/:id"
+                    path="/HomePageMember/Brand/:id"
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
                     memberLoggedInComponent={Brand}

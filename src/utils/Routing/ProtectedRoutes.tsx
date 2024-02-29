@@ -13,12 +13,11 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
 
     const baseRoute = () => <Route exact path="/home" component={Home} />;
     let ComponentToRender: React.ComponentType<any> = VisitorComponent || baseRoute;
-
+    
     if (auth) {
-        console.log("auth.isMember", auth.isMember, );
-        if (auth.isAuthenticated && auth.isMember && MemberLoggedInComponent) {
+        if (auth.isLogin && auth.isMember && MemberLoggedInComponent) {
             ComponentToRender = MemberLoggedInComponent;
-        } else if (auth.isAuthenticated && LoggedInComponent) {
+        } else if (auth.isLogin && LoggedInComponent) {
             ComponentToRender = LoggedInComponent;
         }
     }

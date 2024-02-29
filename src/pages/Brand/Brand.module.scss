@@ -35,3 +35,14 @@
     bottom: 0%;
     padding-bottom: 1rem;
 }
+
+@media screen and (min-width: 1000px) {
+    .bannerImgContainer {
+        width: 70%;
+        margin: 0 auto;
+
+        img {
+            object-fit: contain;
+        }
+    }
+}

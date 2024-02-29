@@ -1,14 +1,14 @@
 import { useStorageServices } from "../../services/storages/useStorageServices";
-export const useClearToken = () => {
-    const { setStorageItem } = useStorageServices();
-    const clearToken = async () => {
+export const useClearStorage = () => {
+    // const { clearStorageTest } = useStorageServices();
+    const clearStorage = async () => {
         try {
-            await setStorageItem("token", "");
+            // clearStorageTest();
         } catch (error) {
             console.error("Erreur lors de la suppression du token", error);
         }
     };
     return {
-        clearToken,
+        clearStorage,
     };
 };

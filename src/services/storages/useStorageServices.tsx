@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Storage } from "@ionic/storage";
+import { useHistory } from "react-router";
 
 export const useStorageServices = () => {
+    const history = useHistory();
     const [storage] = useState(new Storage());
 
     useEffect(() => {
@@ -20,8 +22,14 @@ export const useStorageServices = () => {
         return value;
     };
 
+    const clearStorage = async () => {
+        await storage.clear();
+        history.push("/");
+    };
+
     return {
         setStorageItem,
         getStorageItem,
+        clearStorage,
     };
 };

@@ -10,6 +10,7 @@ import { toastType } from "../../../types/Types";
 import style from "./LoginForm.module.scss";
 
 export const LoginForm = () => {
+    const history = useHistory();
     const { setStorageItem, getStorageItem } = useStorageServices();
     const [formData, setFormData] = useState({ email: "", password: "" });
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
@@ -50,8 +51,13 @@ export const LoginForm = () => {
 
             if (response.status === 200) {
                 await setStorageItem("token", response.data.token);
-                await setStorageItem("email", formData.email);
                 login();
+
+                const userInfo = await getStorageItem("userInfo");
+                const redirectTo = userInfo.roles.includes("ROLE_MEMBER_ACTIVE")
+                    ? "/HomePageMember"
+                    : "/SubscriptionPage";
+                history.push(redirectTo);
             }
         } catch (error) {
             renderToast("error", `la connexion a échoué ${error}`);
@@ -61,9 +67,13 @@ export const LoginForm = () => {
 
     return (
         <>
-            <form id='container' className={style.formContainer} onSubmit={handleSubmit}>
+            <form id="container" className={style.formContainer} onSubmit={handleSubmit}>
                 {showToast?.type && showToast?.message && (
-                    <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
+                    <Toast
+                        typeLog={showToast.type}
+                        message={showToast.message}
+                        key={showToast.key}
+                    />
                 )}
                 <div className={style.inputContainer}>
                     <Input
@@ -71,26 +81,26 @@ export const LoginForm = () => {
                         altIcon={"iconMail"}
                         placeholder={"Mail"}
                         labelType={"email"}
-                        name='email'
+                        name="email"
                         value={formData.email}
                         onChange={handleChange}
-                        type='classic'
+                        type="classic"
                     />
                     <Input
                         iconURL={"assets/iconInput/password.svg"}
                         altIcon={"iconLock"}
                         placeholder={"Mot de passe"}
                         labelType={"password"}
-                        name='password'
+                        name="password"
                         value={formData.password}
                         onChange={handleChange}
-                        type='classic'
+                        type="classic"
                     />
                 </div>
-                <a href='#' className={style.link}>
+                <a href="#" className={style.link}>
                     mot de passe oublié ?
                 </a>
-                <input type='submit' value='Se connecter' className={style.submitButton}></input>
+                <input type="submit" value="Se connecter" className={style.submitButton}></input>
             </form>
         </>
     );

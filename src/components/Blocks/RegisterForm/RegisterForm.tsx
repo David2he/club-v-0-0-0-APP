@@ -13,7 +13,6 @@ import { useStorageServices } from "../../../services/storages/useStorageService
 import { useAuth } from "../../../services/contexts/AuthContext";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
-import { BlockText } from "../../Elements/BlockText/BlockText";
 
 export const RegisterForm = () => {
     const history = useHistory();
@@ -61,7 +60,7 @@ export const RegisterForm = () => {
                 userInfo: {
                     firstName: formData.fName,
                     lastName: formData.name,
-                    birthday: "2023-08-24T08:41:26.978Z",
+                    birthday: "2023-08-24T08:41:26.978Z", // TO DO ALLOW USER TO CHANGE BIRTHDAY
                     phoneNumber: formData.phone,
                 },
                 nonce: formData.parrainageCode ? formData.parrainageCode : "",
@@ -73,7 +72,7 @@ export const RegisterForm = () => {
             if (isChecked === false) {
                 setshowToast({
                     type: "error",
-                    message: "Vous devez accepter les CGU",
+                    message: "Vous devez accepter les CGU avant de continuer",
                     key: Date.now(),
                 });
                 return;
@@ -101,7 +100,6 @@ export const RegisterForm = () => {
                 );
                 if (loginResponse.status === 200) {
                     await setStorageItem("token", loginResponse.data.token);
-                    await setStorageItem("email", formData.email);
                     login();
                     history.push("/SubscriptionPage");
                 }
@@ -112,6 +110,7 @@ export const RegisterForm = () => {
                 });
             }
         } catch (error) {
+            console.log(error);
             setshowToast({
                 type: "error",
                 message: "Erreur lors de l'enregistrement : " + error,
