@@ -33,8 +33,8 @@ const StripePage: React.FC = () => {
     const options = { clientSecret };
 
     return (
-        <IonPage id="main-content" className="container">
-            <div className="headerContainer">
+        <IonPage id='main-content' className='container'>
+            <div className='headerContainer'>
                 <Header />
             </div>
             <div className={style.content}>

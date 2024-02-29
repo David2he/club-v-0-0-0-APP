@@ -21,75 +21,75 @@ const AppRouter: React.FC = () => {
             <Switch>
                 <ProtectedRoute
                     exact
-                    path="/RegisterFormContainer"
+                    path='/RegisterFormContainer'
                     visitorComponent={RegisterFormContainer}
                     loggedInComponent={RegisterFormContainer}
                     memberLoggedInComponent={RegisterFormContainer}
                 />
                 <ProtectedRoute
                     exact
-                    path="/SubscriptionPage"
+                    path='/SubscriptionPage'
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
                     memberLoggedInComponent={HomePageMenber}
                 />
                 <ProtectedRoute
                     exact
-                    path="/PaymentPage"
+                    path='/PaymentPage'
                     visitorComponent={Home}
                     loggedInComponent={StripePage}
-                    memberLoggedInComponent={StripePage}
+                    memberLoggedInComponent={HomePageMenber}
                 />
                 <ProtectedRoute
                     exact
-                    path="/SuccessFullPayment"
+                    path='/SuccessFullPayment'
                     visitorComponent={RegisterFormContainer}
                     loggedInComponent={SuccessPaymentPage}
                     memberLoggedInComponent={SuccessPaymentPage}
                 />
                 <ProtectedRoute
                     exact
-                    path="/"
+                    path='/'
                     visitorComponent={Home}
                     loggedInComponent={Home}
                     memberLoggedInComponent={HomePageMenber}
                 />
                 <ProtectedRoute
                     exact
-                    path="/HomePageMember"
+                    path='/HomePageMember'
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
                     memberLoggedInComponent={HomePageMenber}
                 />
                 <ProtectedRoute
                     exact
-                    path="/HomePageMember/Brand/:id"
+                    path='/HomePageMember/Brand/api/vendors/:id'
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
                     memberLoggedInComponent={Brand}
                 />
                 <ProtectedRoute
                     exact
-                    path="/Refferral"
+                    path='/Refferral'
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
                     memberLoggedInComponent={Refferal}
                 />
                 <ProtectedRoute
                     exact
-                    path="/Account"
+                    path='/Account'
                     visitorComponent={Home}
                     loggedInComponent={Account}
                     memberLoggedInComponent={Account}
                 />
                 <ProtectedRoute
                     exact
-                    path="/MentionsLégales"
+                    path='/MentionsLégales'
                     visitorComponent={LegalNoticePage}
                     loggedInComponent={LegalNoticePage}
                     memberLoggedInComponent={LegalNoticePage}
                 />
-                <Route path="*" component={PageNotFound} />
+                <Route path='*' component={PageNotFound} />
             </Switch>
 
             {/* 

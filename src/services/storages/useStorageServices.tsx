@@ -25,6 +25,7 @@ export const useStorageServices = () => {
     const clearStorage = async () => {
         await storage.clear();
         history.push("/");
+        window.location.reload();
     };
 
     return {

@@ -6,39 +6,49 @@ import { BlockText } from "../../components/Elements/BlockText/BlockText";
 import { ButtonSubmit } from "../../components/Elements/Button/ButtonSubmit";
 import { handlePostData } from "../../services/api";
 import { useStorageServices } from "../../services/storages/useStorageServices";
+import { toastType, BrandDataType } from "../../types/Types";
 import { Toast } from "../../components/Blocks/Toast/Toast";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import data from "../../utils/dataTest/data.json";
-import style from "./Brand.module.scss";
-import { toastType } from "../../types/Types";
-import { useAuth } from "../../services/contexts/AuthContext";
 import { Footer } from "../../components/Blocks/Footer/Footer";
+import { handleGetData } from "../../services/api";
+import style from "./Brand.module.scss";
+
 const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
+    const [allBrandsData, setAllBrandsData] = useState<BrandDataType | null>(null);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const { id } = useParams<{ id: string }>();
-    const auth = useAuth();
+
     const vendorData = data[id as keyof typeof data];
 
     const renderToast = (type: string, message: string) => {
         setshowToast({ type, message, key: Date.now() });
     };
 
+    useEffect(() => {
+        const getAllVendorInfo = async () => {
+            try {
+                const response = await handleGetData(`https://lodge-api.aihclubs.com/api/vendors/${id}`, {
+                    headers: {},
+                });
+                setAllBrandsData(response.data.brands[0]);
+            } catch (error) {
+                console.log(error);
+            }
+        };
+        getAllVendorInfo();
+    }, []);
+
     const handleActivateVIP = async () => {
         const token = await getStorageItem("token");
-
-        // console.log(token);
-        console.log(auth?.user);
         try {
-            const response = await handlePostData(
-                "https://lodge-api.aihclubs.com/api/vendor/1/activate",
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
+            const response = await handlePostData(`https://lodge-api.aihclubs.com/api/vendor/${id}/activate`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
             if (response.status === 200) {
                 renderToast("succes", "votre pass VIP est activé");
             }
@@ -48,45 +58,42 @@ const Brand: React.FC = () => {
         }
     };
     return (
-        <IonPage id="main-content" className="containerMainAPP">
-            <div className="content">
+        <IonPage id='main-content' className='containerMainAPP'>
+            <div className='content'>
                 <HamburguerMenue />
                 {showToast?.type && showToast?.message && (
-                    <Toast
-                        typeLog={showToast.type}
-                        message={showToast.message}
-                        key={showToast.key}
-                    />
+                    <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
                 )}
                 <Header />
-                <div className={style.bannerImgContainer}>
-                    <img src={`./assets/Brand/${id}/bannerImg.png`} alt="banner" />
-                </div>
+                {allBrandsData && (
+                    <>
+                        <div className={style.bannerImgContainer}>
+                            <img src={allBrandsData.banner} alt='banner' />
+                        </div>
+                        <div className={style.brandMainInfoContainer}>
+                            {allBrandsData && (
+                                <img src={allBrandsData.logo} className={style.logoImgContainer} alt='logo' />
+                            )}
+                            <h1 className={style.brandName}>{allBrandsData.title}</h1>
 
-                <div className={style.brandMainInfoContainer}>
-                    <img
-                        className={style.logoImgContainer}
-                        src={`./assets/Brand/${id}/logo.png`}
-                        alt="logo"
-                    />
-                    <h1 className={style.brandName}>{vendorData?.vendorName}</h1>
-
-                    <BlockText
-                        title="Info de la marque"
-                        text={vendorData.vendorDescription}
-                        closable={false}
-                        expandable={false}
-                    />
-                </div>
-                <div className={style.activeBrandButtonContainer}>
-                    <div className={style.test}>
-                        <ButtonSubmit
-                            text="Activer mon pass VIP"
-                            size="large"
-                            callFunctionOnClick={handleActivateVIP}
-                        />
-                    </div>
-                </div>
+                            <BlockText
+                                title='Info de la marque'
+                                text={allBrandsData.description}
+                                closable={false}
+                                expandable={false}
+                            />
+                        </div>
+                        <div className={style.activeBrandButtonContainer}>
+                            <div className={style.test}>
+                                <ButtonSubmit
+                                    text='Activer mon pass VIP'
+                                    size='large'
+                                    callFunctionOnClick={handleActivateVIP}
+                                />
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
         </IonPage>
     );

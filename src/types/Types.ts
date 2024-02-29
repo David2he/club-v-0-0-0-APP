@@ -138,3 +138,17 @@ export interface StripePaymentContextType {
     clientSecret: string;
     setClientSecret: React.Dispatch<React.SetStateAction<string>>;
 }
+
+export interface BrandDataType {
+    banner: string;
+    logo: string;
+    title: string;
+    description: string;
+}
+
+export interface VendorDataType {
+    "@id": string;
+    brands: Array<{
+        banner: string;
+    }>;
+}
