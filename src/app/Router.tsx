@@ -30,14 +30,14 @@ const AppRouter: React.FC = () => {
                     path="/SubscriptionPage"
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
-                    memberLoggedInComponent={HomePageMenber}
+                    memberLoggedInComponent={SubscriptionPage}
                 />
                 <ProtectedRoute
                     exact
                     path="/PaymentPage"
                     visitorComponent={Home}
                     loggedInComponent={StripePage}
-                    memberLoggedInComponent={HomePageMenber}
+                    memberLoggedInComponent={StripePage}
                 />
                 <ProtectedRoute
                     exact

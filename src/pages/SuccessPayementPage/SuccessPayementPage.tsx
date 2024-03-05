@@ -1,9 +1,9 @@
-import style from "./SuccessPayementPage.module.scss";
 import { IonPage } from "@ionic/react";
 import { Header } from "../../components/Blocks/Header/Header";
 import { useHistory } from "react-router";
 import { useStorageServices } from "../../services/storages/useStorageServices";
 import { useAuth } from "../../services/contexts/AuthContext";
+import style from "./SuccessPayementPage.module.scss";
 const SuccessPayementPage: React.FC = () => {
     const history = useHistory();
     const auth = useAuth();
@@ -20,18 +20,21 @@ const SuccessPayementPage: React.FC = () => {
     };
     return (
         <IonPage id="main-content" className="container">
-            <div className="headerContainer">
-                <Header />
+            <div className="container">
+                <div className="content">
+                    <Header />
+                    <div className={style.backHomeContainer}></div>
+                    <p className="Mtext-1">Votre payement a eté validé</p>
+                    <button
+                        onClick={() => {
+                            handleUserPay();
+                        }}
+                        className="submitButton"
+                    >
+                        Retourner a l'application
+                    </button>
+                </div>
             </div>
-            <p>Votre payement a eté validé</p>
-            <button
-                onClick={() => {
-                    handleUserPay();
-                }}
-                className={style.button}
-            >
-                Retourner a l'application
-            </button>
         </IonPage>
     );
 };

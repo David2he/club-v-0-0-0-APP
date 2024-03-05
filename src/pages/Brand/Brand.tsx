@@ -64,50 +64,56 @@ const Brand: React.FC = () => {
         }
     };
     return (
-        <IonPage id="main-content" className="container">
-            <div className="content">
-                <HamburgerMenue />
-                {showToast?.type && showToast?.message && (
-                    <Toast
-                        typeLog={showToast.type}
-                        message={showToast.message}
-                        key={showToast.key}
-                    />
-                )}
-                <Header />
-                {allBrandsData && (
-                    <>
-                        <div className={style.bannerImgContainer}>
-                            <img src={allBrandsData.banner} alt="banner" />
-                        </div>
-                        <div className={style.brandMainInfoContainer}>
-                            {allBrandsData && (
-                                <img
-                                    src={allBrandsData.logo}
-                                    className={style.logoImgContainer}
-                                    alt="logo"
-                                />
-                            )}
-                            <h1 className={style.brandName}>{allBrandsData.title}</h1>
+        <IonPage id="main-content" className="allContainer">
+            <div className="container">
+                <div className="burgerContainer">
+                    <HamburgerMenue />
+                </div>
+                <div className="content">
+                    <Header />
+                    {showToast?.type && showToast?.message && (
+                        <Toast
+                            typeLog={showToast.type}
+                            message={showToast.message}
+                            key={showToast.key}
+                        />
+                    )}
 
-                            <BlockText
-                                title="Info de la marque"
-                                text={allBrandsData.description}
-                                closable={false}
-                                expandable={false}
-                            />
-                        </div>
-                        <div className={style.activeBrandButtonContainer}>
-                            <div className={style.test}>
-                                <ButtonSubmit
-                                    text="Activer mon pass VIP"
-                                    size="large"
-                                    callFunctionOnClick={handleActivateVIP}
+                    {allBrandsData && (
+                        <>
+                            <div className={style.bannerImgContainer}>
+                                <img src={allBrandsData.banner} alt="banner" />
+                            </div>
+                            <div className={style.brandMainInfoContainer}>
+                                {allBrandsData && (
+                                    <img
+                                        src={allBrandsData.logo}
+                                        className={style.logoImgContainer}
+                                        alt="logo"
+                                    />
+                                )}
+                                <h1 className={style.brandName}>{allBrandsData.title}</h1>
+
+                                <BlockText
+                                    title="Info de la marque"
+                                    text={allBrandsData.description}
+                                    closable={false}
+                                    expandable={false}
                                 />
                             </div>
-                        </div>
-                    </>
-                )}
+                            <div className={style.activeBrandButtonContainer}>
+                                <div className={style.test}>
+                                    <ButtonSubmit
+                                        text="Activer mon pass VIP"
+                                        size="large"
+                                        callFunctionOnClick={handleActivateVIP}
+                                    />
+                                </div>
+                            </div>
+                        </>
+                    )}
+                    <Footer />
+                </div>
             </div>
         </IonPage>
     );

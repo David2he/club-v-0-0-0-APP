@@ -12,9 +12,12 @@ export const DisplayItemsHomePageMenber = () => {
         useEffect(() => {
             const getAllVendorInfo = async () => {
                 try {
-                    const response = await handleGetData("https://lodge-api.aihclubs.com/api/vendors", {
-                        headers: {},
-                    });
+                    const response = await handleGetData(
+                        "https://lodge-api.aihclubs.com/api/vendors",
+                        {
+                            headers: {},
+                        }
+                    );
                     setAllVendorsData(response.data["hydra:member"]);
                 } catch (error) {
                     console.log(error);
@@ -34,20 +37,28 @@ export const DisplayItemsHomePageMenber = () => {
                         className={`${style.displayImgContainer} ${style.displayThemInline}`}
                         onClick={() => setTypeOFdisplay("line")}
                     >
-                        <img src={`./assets/iconBlockText/${typeOFdisplay === "line" ? "line_filled" : "line"}.svg`} />
+                        <img
+                            src={`./assets/iconBlockText/${
+                                typeOFdisplay === "line" ? "line_filled" : "line"
+                            }.svg`}
+                        />
                     </div>
                     <div
                         className={`${style.displayImgContainer} ${style.displayThemBlock}`}
                         onClick={() => setTypeOFdisplay("block")}
                     >
                         <img
-                            src={`./assets/iconBlockText/${typeOFdisplay === "block" ? "block_filled" : "block"}.svg`}
+                            src={`./assets/iconBlockText/${
+                                typeOFdisplay === "block" ? "block_filled" : "block"
+                            }.svg`}
                         />
                     </div>
                 </div>
                 <div
                     className={`${style.contentContainer} ${
-                        typeOFdisplay === "block" ? style.containerBlockDisplay : style.containerLineDisplay
+                        typeOFdisplay === "block"
+                            ? style.containerBlockDisplay
+                            : style.containerLineDisplay
                     }`}
                 >
                     {Array.isArray(allVendorsData) &&
@@ -69,7 +80,7 @@ export const DisplayItemsHomePageMenber = () => {
 
     return (
         <div>
-            <BlockText title='Nos marques' text={displayThemAll} closable={false} />
+            <BlockText title="Nos marques" text={displayThemAll} closable={false} />
         </div>
     );
 };

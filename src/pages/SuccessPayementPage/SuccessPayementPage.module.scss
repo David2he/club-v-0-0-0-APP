@@ -1,4 +1,7 @@
 @import "../../theme/rules.scss";
-.button {
-    @include button;
+
+p {
+    color: var(--ion-text-color);
+    @include title_06;
+    cursor: pointer;
 }

@@ -305,25 +305,7 @@ export const RegisterForm = () => {
                         />
                     </div>
                 ))}
-                {Object.entries(formData).map(([key, value]) => (
-                    <div key={key}>
-                        <Input
-                            iconURL={`assets/iconInput/${handleCorrectCheckForm(key, "icon")}.svg`}
-                            altIcon={"iconLock"}
-                            placeholder={`Enter your ${key}`}
-                            labelType={handleCorrectCheckForm(key, "type")}
-                            name={key}
-                            value={value ?? ""}
-                            onChange={(e) =>
-                                setFormData((prevState) => ({
-                                    ...prevState,
-                                    [e.target.name]: e.target.value,
-                                }))
-                            }
-                            type="classic"
-                        />
-                    </div>
-                ))}
+
                 <label>
                     <input type="checkbox" checked={isChecked} onChange={handleOnChange} />
                     Cochez-moi pour accepter les CGU
