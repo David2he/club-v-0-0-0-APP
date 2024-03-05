@@ -1,7 +1,7 @@
 import { IonPage } from "@ionic/react";
 import { Header } from "../../components/Blocks/Header/Header";
 import { useParams } from "react-router-dom";
-import { HamburguerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
+import { HamburgerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
 import { BlockText } from "../../components/Elements/BlockText/BlockText";
 import { ButtonSubmit } from "../../components/Elements/Button/ButtonSubmit";
 import { handlePostData } from "../../services/api";
@@ -29,9 +29,12 @@ const Brand: React.FC = () => {
     useEffect(() => {
         const getAllVendorInfo = async () => {
             try {
-                const response = await handleGetData(`https://lodge-api.aihclubs.com/api/vendors/${id}`, {
-                    headers: {},
-                });
+                const response = await handleGetData(
+                    `https://lodge-api.aihclubs.com/api/vendors/${id}`,
+                    {
+                        headers: {},
+                    }
+                );
                 setAllBrandsData(response.data.brands[0]);
             } catch (error) {
                 console.log(error);
@@ -43,12 +46,15 @@ const Brand: React.FC = () => {
     const handleActivateVIP = async () => {
         const token = await getStorageItem("token");
         try {
-            const response = await handlePostData(`https://lodge-api.aihclubs.com/api/vendor/${id}/activate`, {
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`,
-                },
-            });
+            const response = await handlePostData(
+                `https://lodge-api.aihclubs.com/api/vendor/${id}/activate`,
+                {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
             if (response.status === 200) {
                 renderToast("succes", "votre pass VIP est activé");
             }
@@ -58,26 +64,34 @@ const Brand: React.FC = () => {
         }
     };
     return (
-        <IonPage id='main-content' className='containerMainAPP'>
-            <div className='content'>
-                <HamburguerMenue />
+        <IonPage id="main-content" className="container">
+            <div className="content">
+                <HamburgerMenue />
                 {showToast?.type && showToast?.message && (
-                    <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
+                    <Toast
+                        typeLog={showToast.type}
+                        message={showToast.message}
+                        key={showToast.key}
+                    />
                 )}
                 <Header />
                 {allBrandsData && (
                     <>
                         <div className={style.bannerImgContainer}>
-                            <img src={allBrandsData.banner} alt='banner' />
+                            <img src={allBrandsData.banner} alt="banner" />
                         </div>
                         <div className={style.brandMainInfoContainer}>
                             {allBrandsData && (
-                                <img src={allBrandsData.logo} className={style.logoImgContainer} alt='logo' />
+                                <img
+                                    src={allBrandsData.logo}
+                                    className={style.logoImgContainer}
+                                    alt="logo"
+                                />
                             )}
                             <h1 className={style.brandName}>{allBrandsData.title}</h1>
 
                             <BlockText
-                                title='Info de la marque'
+                                title="Info de la marque"
                                 text={allBrandsData.description}
                                 closable={false}
                                 expandable={false}
@@ -86,8 +100,8 @@ const Brand: React.FC = () => {
                         <div className={style.activeBrandButtonContainer}>
                             <div className={style.test}>
                                 <ButtonSubmit
-                                    text='Activer mon pass VIP'
-                                    size='large'
+                                    text="Activer mon pass VIP"
+                                    size="large"
                                     callFunctionOnClick={handleActivateVIP}
                                 />
                             </div>

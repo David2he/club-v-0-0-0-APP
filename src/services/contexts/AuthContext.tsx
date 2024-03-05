@@ -41,11 +41,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             try {
                 const decoded = decodeToken(token) as { email: string; id: number };
 
-                const response = await handleGetData(`https://lodge-api.aihclubs.com/api/users/${decoded.id}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
+                const response = await handleGetData(
+                    `https://lodge-api.aihclubs.com/api/users/${decoded.id}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
 
                 if (response && response.data) {
                     const { email, roles, userInfo, isAdmin, isBrandAdmin } = response.data;
@@ -84,7 +87,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const userInfo = await getStorageItem("userInfo");
 
         if (userInfo) {
-            if (userInfo.roles.includes("ROLE_MEMBER_ACTIVE") && userInfo.token) {
+            if (
+                userInfo.roles.some((role: string) =>
+                    ["ROLE_MEMBER_ACTIVE", "ROLE_ADMIN", "ROLE_BRAND_ADMIN"].includes(role)
+                ) &&
+                userInfo.token
+            ) {
                 setIsMember(true);
                 setIsLogin(true);
             } else if (userInfo.token) {

@@ -10,13 +10,14 @@ const PageNotFound: React.FC = () => {
         <IonPage>
             <IonContent className="ion-padding">
                 <Header />
-                <div className="container">
+                <div className="NotFoundPagecontainer">
                     <h1>404</h1>
                     <p>Page not found</p>
                     <button
                         onClick={() => {
                             history.push("/");
                         }}
+                        className="submitButton"
                     >
                         Revenir a l'acceuil
                     </button>

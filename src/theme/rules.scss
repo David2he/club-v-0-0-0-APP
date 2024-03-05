@@ -288,3 +288,83 @@
     width: 80%;
     background-color: transparent;
 }
+body {
+    overflow-y: auto;
+}
+
+.allContainer {
+    width: 100vw;
+    overflow-x: hidden;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+
+    overflow-y: auto;
+    height: auto;
+}
+
+.container {
+    max-width: 60rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    position: relative;
+    .burgerContainer {
+        pointer-events: none;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        z-index: 10;
+    }
+}
+.content {
+    padding-top: 2rem;
+    width: 100%;
+}
+
+.registerFormContainer {
+    padding-top: 10vh;
+    width: 100%;
+    max-width: 60rem;
+    padding-bottom: 2rem;
+}
+
+.containerMainAPP {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    overflow-y: auto;
+}
+
+.NotFoundPagecontainer {
+    max-width: 60rem;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    background-color: orange;
+    min-height: 40vh;
+}
+
+.submitButton {
+    @include button;
+}
+
+@media screen and (min-width: 2100px) {
+    html {
+        font-size: 24px;
+    }
+}
+
+@media screen and (max-width: 1920px) {
+    html {
+        font-size: 16px;
+    }
+}

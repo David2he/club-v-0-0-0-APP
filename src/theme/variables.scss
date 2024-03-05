@@ -15,12 +15,12 @@ http://ionicframework.com/docs/theming/ */
 
 @media (prefers-color-scheme: light) {
     body {
-        --ion-color-primary: #ffcb74;
-        --ion-color-primary-contrast: #2f2f2f;
-        --ion-background-color: #f4faff;
+        --ion-background-color: #2f2f2f;
         --ion-text-color: #ffcb74; /* Couleur du texte principal */
         --ion-link-color: #ffbc47; /* Couleur des liens */
         --ion-secondary-text-color: #a3a3a3; /* Couleur des textes moins importants */
+        --ion-white-color: #f4faff;
         --ion-black-color: #151515;
+        --ion-background-color-contrast: #393a3f;
     }
 }

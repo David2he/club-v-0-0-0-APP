@@ -1,11 +1,11 @@
 import { IonPage } from "@ionic/react";
 import { Header } from "../../components/Blocks/Header/Header";
-import { HamburguerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
+import { HamburgerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
 import { BlockText } from "../../components/Elements/BlockText/BlockText";
-import "./Refferal.scss";
 import { RefferalCodeInput } from "../../components/Elements/RefferalCodeInput/RefferalCodeInput";
+import "./GetMyRefferal.scss";
 
-const Refferal: React.FC = () => {
+const GetMyRefferal: React.FC = () => {
     const getRefferalCode = (): JSX.Element => {
         return (
             <>
@@ -14,9 +14,9 @@ const Refferal: React.FC = () => {
         );
     };
     return (
-        <IonPage id="main-content" className="containerMainAPP">
+        <IonPage id="main-content" className="container">
             <div className="content">
-                <HamburguerMenue />
+                <HamburgerMenue />
                 <Header />
                 <div>
                     <BlockText
@@ -31,4 +31,4 @@ const Refferal: React.FC = () => {
     );
 };
 
-export default Refferal;
+export default GetMyRefferal;

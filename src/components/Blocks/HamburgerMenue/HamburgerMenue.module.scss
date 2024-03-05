@@ -1,9 +1,10 @@
 @import "../../../../src/theme/rules.scss";
-.container {
+.hamburgueurContainer {
     position: sticky;
     top: 0rem;
     left: 0rem;
     z-index: 2;
+
     .hamburgerIcon {
         position: relative;
         display: flex;
@@ -14,6 +15,7 @@
         height: 3rem;
         transform: translate(1rem, 1rem);
         z-index: 4;
+        pointer-events: auto;
         cursor: pointer;
         span {
             width: 100%;
@@ -24,13 +26,14 @@
     }
     .containerHamburger {
         overflow: hidden;
+
         position: absolute;
         top: 0;
         z-index: 2;
         width: 65%;
         height: 86vh;
 
-        transform: translateX(-100%);
+        // transform: translateX(-100%);
         background-color: var(--ion-background-color-contrast);
         padding-top: 8rem;
         padding-left: 1rem;
@@ -38,7 +41,7 @@
         justify-content: flex-start;
         align-items: flex-start;
         flex-direction: column;
-        transition: 0.3s ease-in-out;
+        transition: 0.1s ease-in-out;
 
         p {
             color: var(--ion-text-color);
@@ -48,9 +51,11 @@
         }
     }
     .openMenu {
-        transform: translateX(0%);
+        opacity: 1;
+        pointer-events: auto;
     }
     .closeMenu {
-        transform: translateX(-100%);
+        opacity: 0;
+        pointer-events: none;
     }
 }

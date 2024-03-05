@@ -28,7 +28,7 @@ export const RefferalCodeInput = () => {
         getRefferalCode();
     }, []);
 
-    const copyToClipboard = async (e) => {
+    const copyToClipboard = async () => {
         try {
             await navigator.clipboard.writeText(referralCode);
         } catch (err) {

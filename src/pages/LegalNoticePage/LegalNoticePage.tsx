@@ -5,7 +5,7 @@ import { BlockText } from "../../components/Elements/BlockText/BlockText";
 
 const LegalNoticePage: React.FC = () => {
     return (
-        <IonPage id="main-content" className="containerMainAPP">
+        <IonPage id="main-content" className="container">
             <div className="content">
                 <Header />
 

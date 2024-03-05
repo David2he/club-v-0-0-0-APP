@@ -36,7 +36,7 @@ export const BlockText = ({ title, text, closable, expandable }: BlockTextProps)
     }, [isUnfolded]);
 
     return (
-        <div className={style.container}>
+        <div className={style.blockTextContainer}>
             <div className={style.titleANDCrossContainer}>
                 <p className={style.title}>{title}</p>
                 {closable ? (
