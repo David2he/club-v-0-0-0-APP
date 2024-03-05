@@ -7,15 +7,17 @@ import { Footer } from "../components/Blocks/Footer/Footer";
 
 const Home: React.FC = () => {
     return (
-        <IonPage id="main-content" className="container">
-            <div className="headerContainer">
-                <Header />
+        <IonPage id="main-content" className="allContainer">
+            <div className="container">
+                <div className="content">
+                    <Header />
+                </div>
+                <div className="formLoginAndRegisterContainer">
+                    <LoginForm />
+                    <RefferalForm />
+                </div>
+                <Footer />
             </div>
-            <div className="formLoginAndRegisterContainer">
-                <LoginForm />
-                <RefferalForm />
-            </div>
-            <Footer />
         </IonPage>
     );
 };

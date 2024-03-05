@@ -8,27 +8,29 @@ export const Toast: React.FC<toastProps> = ({ typeLog, message }) => {
         setShowLog(false);
     };
 
-    const fiveSecondsDelayCloseLog = () => {
+    const delayCloseLog = () => {
         setTimeout(() => {
             setShowLog(false);
-        }, 5000);
+        }, 8000);
     };
-    fiveSecondsDelayCloseLog();
+    delayCloseLog();
     const errorMessage = () => {
         return (
             <>
                 <div
-                    className={`${style.messageContainer} ${style.errorLogContainer} ${showLog ? "" : style.closeLog}`}
+                    className={`${style.messageContainer} ${style.errorLogContainer} ${
+                        showLog ? "" : style.closeLog
+                    }`}
                 >
                     <div className={style.upLoader}></div>
                     <div className={style.titleContainer}>
-                        <img src='/assets/iconModalLog/Error.svg' alt='succes' />
+                        <img src="/assets/iconModalLog/Error.svg" alt="succes" />
                         <p className={style.title}>{typeLog}</p>
                     </div>
                     <p>{message}</p>
                     <img
-                        src='/assets/iconModalLog/closeError.svg'
-                        alt='succes'
+                        src="/assets/iconModalLog/closeError.svg"
+                        alt="succes"
                         className={style.closeIcon}
                         onClick={() => closeLog()}
                     />
@@ -40,17 +42,19 @@ export const Toast: React.FC<toastProps> = ({ typeLog, message }) => {
         return (
             <>
                 <div
-                    className={`${style.messageContainer} ${style.succesLogContainer} ${showLog ? "" : style.closeLog}`}
+                    className={`${style.messageContainer} ${style.succesLogContainer} ${
+                        showLog ? "" : style.closeLog
+                    }`}
                 >
                     <div className={style.upLoader}></div>
                     <div className={style.titleContainer}>
-                        <img src='/assets/iconModalLog/Success.svg' alt='succes' />
+                        <img src="/assets/iconModalLog/Success.svg" alt="succes" />
                         <p className={style.title}>{typeLog}</p>
                     </div>
                     <p>{message}</p>
                     <img
-                        src='/assets/iconModalLog/closeSuccess.svg'
-                        alt='succes'
+                        src="/assets/iconModalLog/closeSuccess.svg"
+                        alt="succes"
                         className={style.closeIcon}
                         onClick={() => closeLog()}
                     />
@@ -60,7 +64,9 @@ export const Toast: React.FC<toastProps> = ({ typeLog, message }) => {
     };
     return (
         <div className={style.logContainer}>
-            {typeLog.length > 1 && message.length > 1 && (typeLog === "error" ? errorMessage() : succesMessage())}
+            {typeLog.length > 1 &&
+                message.length > 1 &&
+                (typeLog === "error" ? errorMessage() : succesMessage())}
         </div>
     );
 };

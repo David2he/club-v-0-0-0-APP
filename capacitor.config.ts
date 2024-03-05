@@ -1,4 +1,8 @@
 import { CapacitorConfig } from "@capacitor/cli";
+import dotenv from "dotenv";
+
+// Configure dotenv
+dotenv.config();
 
 const config: CapacitorConfig = {
     appId: "io.ionic.starter",
@@ -9,7 +13,7 @@ const config: CapacitorConfig = {
     },
     plugins: {
         Stripe: {
-            publishableKey: import.meta.env.VITE_API_PUBLIC_KEY_STRIPE || "fallback_public_key",
+            publishableKey: process.env.VITE_API_PUBLIC_KEY_STRIPE || "fallback_public_key",
         },
     },
 };

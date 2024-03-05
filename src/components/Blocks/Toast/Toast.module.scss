@@ -18,7 +18,7 @@
     padding: 0.75rem;
     margin: 3rem auto;
     overflow: hidden;
-    @include Ltext_02;
+
     opacity: 0;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25), 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
     animation: showLog 0.3s ease-out forwards;
@@ -35,6 +35,8 @@
     p {
         padding: 0;
         margin: 0;
+        font-family: Work Sans;
+        font-size: 1rem;
     }
     .titleContainer {
         display: flex;
@@ -56,17 +58,25 @@
 
 .errorLogContainer {
     background-color: #f4bbbb;
-    color: #d16d6d;
+
     .upLoader {
         background-color: #d16d6d;
+    }
+    * {
+        font-family: work-sans, serif;
+        color: #d16d6d !important;
     }
 }
 
 .succesLogContainer {
     background-color: #d5f4da;
     color: #6b8a70;
+    font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
     .upLoader {
         background-color: #6b8a70;
+    }
+    * {
+        color: #6b8a70 !important;
     }
 }
 

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import style from "./RegisterForm.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { useHistory } from "react-router";
@@ -13,18 +13,13 @@ import { useStorageServices } from "../../../services/storages/useStorageService
 import { useAuth } from "../../../services/contexts/AuthContext";
 import { Toast } from "../Toast/Toast";
 import { handlePostData } from "../../../services/api";
+import { Footer } from "../Footer/Footer";
 
 export const RegisterForm = () => {
     const history = useHistory();
     const { setStorageItem } = useStorageServices();
     const [isChecked, setIsChecked] = useState(false);
     const auth = useAuth();
-
-    if (!auth) {
-        throw new Error("Auth context is undefined");
-    }
-
-    const { login } = auth;
     const [step, setStep] = useState<number>(0);
     const currentUrl = new URL(window.location.href);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
@@ -34,23 +29,18 @@ export const RegisterForm = () => {
         fName: "",
         name: "",
         phone: "",
-        parrainageCode: currentUrl.searchParams.get("code") ?? "",
+        refferal: currentUrl.searchParams.get("code") ?? "",
     });
+
+    if (!auth) {
+        throw new Error("Auth context is undefined");
+    }
+
+    const { login } = auth;
 
     const handleOnChange = () => {
         setIsChecked(!isChecked);
     };
-
-    // const inputCGU = (): JSX.Element => {
-    //     return (
-    //         <div>
-    //             <label>
-    //                 <input type="checkbox" checked={isChecked} onChange={handleOnChange} />
-    //                 Cochez-moi
-    //             </label>
-    //         </div>
-    //     );
-    // };
 
     const postRegisterForm = async () => {
         try {
@@ -63,7 +53,7 @@ export const RegisterForm = () => {
                     birthday: "2023-08-24T08:41:26.978Z", // TO DO ALLOW USER TO CHANGE BIRTHDAY
                     phoneNumber: formData.phone,
                 },
-                nonce: formData.parrainageCode ? formData.parrainageCode : "",
+                nonce: formData.refferal ? formData.refferal : "",
             };
             const loginDataToSend: LoginFormDataToSendType = {
                 username: formData.email,
@@ -120,9 +110,19 @@ export const RegisterForm = () => {
         }
     };
 
-    const handleFormRegister = () => {
+    const handleFormRegister = (direction: string) => {
         const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
         const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
+
+        if (direction === "back") {
+            if (step === 0) {
+                history.push("/");
+            } else {
+                setStep((prevState) => prevState - 1);
+            }
+            return;
+        }
+
         if (step === 0) {
             if (!emailRegex.test(formData.email)) {
                 setshowToast({
@@ -141,17 +141,16 @@ export const RegisterForm = () => {
                 });
                 return;
             }
-        }
-
-        if (step >= 1) {
+        } else if (step === 1) {
             if (formData.fName.length < 2 || formData.name.length < 2) {
                 setshowToast({
                     type: "error",
-                    message: "Le nom ou le prénom doit contenir au moins 1 caractères",
+                    message: "Le nom ou le prénom doit contenir au moins 2 caractères",
                     key: Date.now(),
                 });
                 return;
             }
+
             if (!phoneRegex.test(formData.phone)) {
                 setshowToast({
                     type: "error",
@@ -162,14 +161,10 @@ export const RegisterForm = () => {
             }
         }
 
-        if (step === 2) {
-            postRegisterForm();
-        }
         if (step < 2) {
-            console.log(formData);
             setStep((prevState) => prevState + 1);
         } else {
-            setStep(2);
+            postRegisterForm();
         }
     };
 
@@ -284,6 +279,7 @@ export const RegisterForm = () => {
 
     // STEP 3
     const lastCheckForm = () => {
+        console.log(Object.entries(formData));
         return (
             <>
                 {Object.entries(formData).map(([key, value]) => (
@@ -306,9 +302,11 @@ export const RegisterForm = () => {
                     </div>
                 ))}
 
-                <label>
+                <label className={style.cgsLabel}>
                     <input type="checkbox" checked={isChecked} onChange={handleOnChange} />
-                    Cochez-moi pour accepter les CGU
+                    <p className={style.smallTextCGS}>
+                        Cochez-moi pour accepter les <span className={style.cgsLink}>CGS</span>
+                    </p>
                 </label>
             </>
         );
@@ -325,11 +323,29 @@ export const RegisterForm = () => {
         <div className={style.formRegisterContainer}>
             <div className={style.inputContainer}>
                 <div className={style.loadingBar}>
-                    <span style={{ transform: `scaleX(${step * 33.33}%)` }}></span>
+                    <span style={{ transform: `scaleX(${step * 50}%)` }}></span>
                 </div>
                 {renderedForm}
             </div>
-            <ButtonSubmit text={"suivant"} callFunctionOnClick={handleFormRegister} />
+            <div className={style.buttonContainer}>
+                <button
+                    className={`${style.backButton}`}
+                    onClick={() => {
+                        handleFormRegister("back");
+                    }}
+                >
+                    Retour
+                </button>
+
+                <button
+                    className={`${style.forwardButton}`}
+                    onClick={() => {
+                        handleFormRegister("forward");
+                    }}
+                >
+                    Suivant
+                </button>
+            </div>
             <div className={style.toastContainer}>
                 <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
             </div>

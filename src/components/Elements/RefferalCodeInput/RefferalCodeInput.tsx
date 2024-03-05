@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { handleGetData } from "../../../services/api";
 import { useStorageServices } from "../../../services/storages/useStorageServices";
+import { Input } from "../../../components/Elements/Input/Input";
 import style from "./RefferalCodeInput.module.scss";
 
 export const RefferalCodeInput = () => {
@@ -38,7 +39,16 @@ export const RefferalCodeInput = () => {
 
     return (
         <div className={style.inputContainer}>
-            <input type="text" value={referralCode} readOnly />
+            {/* <input type="text" value={referralCode} readOnly /> */}
+            <Input
+                iconURL={"assets/iconInput/refferal.svg"}
+                altIcon={"iconLock"}
+                placeholder={"+33 6 43 ......"}
+                labelType={"phone"}
+                name="phone"
+                value={referralCode}
+                type="classic"
+            />
             <div className={style.copyInput}></div>
             <button onClick={copyToClipboard} className={style.copyButton}>
                 Copier le code

@@ -6,3 +6,12 @@
     position: relative;
     z-index: -1;
 }
+
+@media screen and (min-width: 2000px) {
+    .header {
+        padding-bottom: 2rem;
+        img {
+            width: 4rem;
+        }
+    }
+}

@@ -1,3 +1,5 @@
+@import "../../../../src/theme/rules.scss";
+
 .formRegisterContainer {
     display: flex;
     justify-content: center;
@@ -7,7 +9,7 @@
 
     .inputContainer {
         width: 85%;
-        padding: 3.6875rem 1rem;
+        padding: 1rem 1rem;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -41,4 +43,47 @@
 .toastContainer {
     position: absolute;
     top: 50%;
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    gap: 1rem;
+    button {
+        width: 40%;
+        text-align: center;
+        padding: 0.5rem 0 !important;
+    }
+    .backButton {
+        @include button;
+        border: solid 0.5px var(--ion-background-color);
+        background-color: var(--ion-background-color);
+        color: var(--ion-secondary-text-color);
+    }
+    .forwardButton {
+        @include button;
+    }
+}
+
+.cgsLabel {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+    gap: 1rem;
+    input {
+        width: 1rem;
+    }
+    .smallTextCGS {
+        @include Mtext_01;
+        font-size: 0.8rem;
+        font-weight: 400;
+        color: (var(--ion-text-color));
+    }
+    .cgsLink {
+        text-decoration: underline;
+        font-weight: bold;
+    }
 }

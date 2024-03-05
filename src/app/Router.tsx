@@ -50,7 +50,7 @@ const AppRouter: React.FC = () => {
                     exact
                     path="/"
                     visitorComponent={Home}
-                    loggedInComponent={Home}
+                    loggedInComponent={SubscriptionPage}
                     memberLoggedInComponent={HomePageMenber}
                 />
                 <ProtectedRoute
@@ -69,7 +69,7 @@ const AppRouter: React.FC = () => {
                 />
                 <ProtectedRoute
                     exact
-                    path="/Refferral"
+                    path="/GetMyRefferal"
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
                     memberLoggedInComponent={GetMyRefferal}

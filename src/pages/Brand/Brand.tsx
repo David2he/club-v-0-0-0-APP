@@ -12,6 +12,7 @@ import { useState, useEffect } from "react";
 import data from "../../utils/dataTest/data.json";
 import { Footer } from "../../components/Blocks/Footer/Footer";
 import { handleGetData } from "../../services/api";
+import axios from "axios";
 import style from "./Brand.module.scss";
 
 const Brand: React.FC = () => {
@@ -20,7 +21,7 @@ const Brand: React.FC = () => {
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const { id } = useParams<{ id: string }>();
 
-    const vendorData = data[id as keyof typeof data];
+    // const vendorData = data[id as keyof typeof data];
 
     const renderToast = (type: string, message: string) => {
         setshowToast({ type, message, key: Date.now() });
@@ -44,8 +45,14 @@ const Brand: React.FC = () => {
     }, []);
 
     const handleActivateVIP = async () => {
-        const token = await getStorageItem("token");
         try {
+            const token = await getStorageItem("token");
+            const getUserInfo = await getStorageItem("userInfo");
+            const activateBrandDataToSend = {
+                email: getUserInfo.email,
+            };
+            console.log(`https://lodge-api.aihclubs.com/api/vendor/${id}/activate`);
+            console.log(activateBrandDataToSend);
             const response = await handlePostData(
                 `https://lodge-api.aihclubs.com/api/vendor/${id}/activate`,
                 {
@@ -53,14 +60,20 @@ const Brand: React.FC = () => {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
+                    body: JSON.stringify(activateBrandDataToSend),
                 }
             );
             if (response.status === 200) {
-                renderToast("succes", "votre pass VIP est activé");
+                renderToast(
+                    "succes",
+                    "votre pass VIP est activé avec le mail suivant : " + getUserInfo.email
+                );
             }
         } catch (error) {
-            console.error("Erreur lors de l'envoi des données :", error);
-            renderToast("error", `Erreur lors de l'envoi des données ${error}`);
+            if (axios.isAxiosError(error) && error.message) {
+                console.error("Erreur lors de l'envoi des données :", error.message);
+                renderToast("error", `Erreur lors de l'envoi des données ${error.message}`);
+            }
         }
     };
     return (
@@ -78,40 +91,41 @@ const Brand: React.FC = () => {
                             key={showToast.key}
                         />
                     )}
+                    <div className={style.brandContainer}>
+                        {allBrandsData && (
+                            <>
+                                <div className={style.bannerImgContainer}>
+                                    <img src={allBrandsData.banner} alt="banner" />
+                                </div>
+                                <div className={style.brandMainInfoContainer}>
+                                    {allBrandsData && (
+                                        <img
+                                            src={allBrandsData.logo}
+                                            className={style.logoImgContainer}
+                                            alt="logo"
+                                        />
+                                    )}
+                                    <h1 className={style.brandName}>{allBrandsData.title}</h1>
 
-                    {allBrandsData && (
-                        <>
-                            <div className={style.bannerImgContainer}>
-                                <img src={allBrandsData.banner} alt="banner" />
-                            </div>
-                            <div className={style.brandMainInfoContainer}>
-                                {allBrandsData && (
-                                    <img
-                                        src={allBrandsData.logo}
-                                        className={style.logoImgContainer}
-                                        alt="logo"
-                                    />
-                                )}
-                                <h1 className={style.brandName}>{allBrandsData.title}</h1>
-
-                                <BlockText
-                                    title="Info de la marque"
-                                    text={allBrandsData.description}
-                                    closable={false}
-                                    expandable={false}
-                                />
-                            </div>
-                            <div className={style.activeBrandButtonContainer}>
-                                <div className={style.test}>
-                                    <ButtonSubmit
-                                        text="Activer mon pass VIP"
-                                        size="large"
-                                        callFunctionOnClick={handleActivateVIP}
+                                    <BlockText
+                                        title="Info de la marque"
+                                        text={allBrandsData.description}
+                                        closable={false}
+                                        expandable={false}
                                     />
                                 </div>
-                            </div>
-                        </>
-                    )}
+                                <div className={style.activeBrandButtonContainer}>
+                                    <div className={style.test}>
+                                        <ButtonSubmit
+                                            text="Activer mon pass VIP"
+                                            size="large"
+                                            callFunctionOnClick={handleActivateVIP}
+                                        />
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                    </div>
                     <Footer />
                 </div>
             </div>

@@ -44,7 +44,7 @@ export const HamburgerMenue = () => {
             >
                 <p onClick={() => navigate("/HomePageMember")}>Accueil</p>
                 <p onClick={() => navigate("/Account")}>Mon compte</p>
-                <p onClick={() => navigate("/Refferral")}>Parrainer</p>
+                <p onClick={() => navigate("/GetMyRefferal")}>Parrainer</p>
                 <p>Contact</p>
                 <p onClick={() => disconnect()}>Se deconnecter</p>
             </div>

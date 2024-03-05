@@ -24,9 +24,6 @@ export const StripeCheckoutForm = () => {
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // await setStorageItem("isMember", "true");
-        // checkSubscribe();
-        // history.push("/");
         if (!stripe || !elements) {
             console.log("Stripe.js hasn't loaded yet, or clientSecret is missing.");
             return;

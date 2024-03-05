@@ -1,7 +1,8 @@
 @import "../../../theme/rules.scss";
 
 .formPayment {
-    width: 80vw;
+    width: 100%;
+    max-width: 60rem;
     display: flex;
     justify-content: center;
     align-items: center;

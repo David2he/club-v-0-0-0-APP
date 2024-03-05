@@ -4,8 +4,6 @@ import { AuthContextType, UserType } from "../../types/Types";
 import { handleGetData } from "../api";
 import { decodeToken } from "react-jwt";
 
-import { useHistory } from "react-router-dom";
-
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => useContext(AuthContext);
 
@@ -16,10 +14,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     const { getStorageItem, setStorageItem } = useStorageServices();
     const [user, setUser] = useState<UserType | null>(null);
     const { clearStorage } = useStorageServices();
-    const history = useHistory();
+
     useEffect(() => {
         autoCheckLoginAndMember();
-        // clearStorage();
     }, []);
 
     const login = () => {
@@ -40,7 +37,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         if (token) {
             try {
                 const decoded = decodeToken(token) as { email: string; id: number };
-
                 const response = await handleGetData(
                     `https://lodge-api.aihclubs.com/api/users/${decoded.id}`,
                     {
@@ -49,10 +45,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                         },
                     }
                 );
-
                 if (response && response.data) {
                     const { email, roles, userInfo, isAdmin, isBrandAdmin } = response.data;
-
                     const userObject = {
                         token: token,
                         email: email,
@@ -80,12 +74,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             } catch (error) {
                 console.error("Erreur lors du décodage du token", error);
             }
+        } else {
+            setIsLogin(false);
+            setIsMember(false);
         }
     };
 
     const autoCheckLoginAndMember = async () => {
+        console.log("autoCheckLoginAndMember");
+        const token = await getStorageItem("token");
+        if (!token) {
+            setIsLogin(false);
+            setIsMember(false);
+            return;
+        }
         const userInfo = await getStorageItem("userInfo");
-
         if (userInfo) {
             if (
                 userInfo.roles.some((role: string) =>
@@ -102,11 +105,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 setIsLogin(false);
                 setIsMember(false);
             }
+        } else {
+            await getInfoUser();
         }
+        return;
     };
 
     return (
-        <AuthContext.Provider value={{ isLogin, isMember, user, login, logout, checkSubscribe }}>
+        <AuthContext.Provider
+            value={{
+                isLogin,
+                isMember,
+                user,
+                login,
+                logout,
+                checkSubscribe,
+                autoCheckLoginAndMember,
+            }}
+        >
             {children}
         </AuthContext.Provider>
     );

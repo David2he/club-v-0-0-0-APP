@@ -3,6 +3,7 @@ import { Header } from "../../components/Blocks/Header/Header";
 import { HamburgerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
 import { BlockText } from "../../components/Elements/BlockText/BlockText";
 import { RefferalCodeInput } from "../../components/Elements/RefferalCodeInput/RefferalCodeInput";
+
 import "./GetMyRefferal.scss";
 
 const GetMyRefferal: React.FC = () => {
@@ -15,8 +16,10 @@ const GetMyRefferal: React.FC = () => {
     };
     return (
         <IonPage id="main-content" className="container">
-            <div className="content">
+            <div className="burgerContainer">
                 <HamburgerMenue />
+            </div>
+            <div className="content">
                 <Header />
                 <div>
                     <BlockText

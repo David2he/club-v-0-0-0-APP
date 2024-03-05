@@ -18,7 +18,7 @@ const Account: React.FC = () => {
         fName: "",
         name: "",
         phone: "",
-        parrainageCode: "",
+        refferal: "",
     });
 
     const submitChangeUserInfo = async () => {
@@ -50,22 +50,26 @@ const Account: React.FC = () => {
 
     useEffect(() => {
         const getUserInfo = async () => {
-            let getUserInfo = await getStorageItem("userInfo");
-
-            setFormData((prevState) => ({
-                ...prevState,
-                email: getUserInfo.email,
-                fName: getUserInfo.userInfo.firstName,
-                name: getUserInfo.userInfo.lastName,
-                phone: getUserInfo.userInfo.phoneNumber,
-            }));
+            const getUserInfo = await getStorageItem("userInfo");
+            if (getUserInfo) {
+                setFormData((prevState) => ({
+                    ...prevState,
+                    email: getUserInfo.email,
+                    fName: getUserInfo.userInfo.firstName,
+                    name: getUserInfo.userInfo.lastName,
+                    phone: getUserInfo.userInfo.phoneNumber,
+                }));
+            } else {
+            }
         };
         getUserInfo();
     }, [auth]);
     return (
         <IonPage id="main-content" className="container">
-            <div className="content">
+            <div className="burgerContainer">
                 <HamburgerMenue />
+            </div>
+            <div className="content">
                 <Header />
 
                 <div className={style.accountContainer}>

@@ -34,7 +34,7 @@ export type RegisterFormDataStateProps = {
     fName: string;
     name: string;
     phone: string;
-    parrainageCode: string | null;
+    refferal: string | null;
 };
 
 export type RegisterFormDataInAccountStateProps = {
@@ -111,6 +111,7 @@ export interface AuthContextType {
     login: () => void;
     logout: () => void;
     checkSubscribe: () => void;
+    autoCheckLoginAndMember: () => void;
     [key: string]: any;
 }
 

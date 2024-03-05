@@ -11,7 +11,7 @@ import style from "./LoginForm.module.scss";
 
 export const LoginForm = () => {
     const { setStorageItem, getStorageItem } = useStorageServices();
-    const [formData, setFormData] = useState({ email: "", password: "" });
+    const [formData, setFormData] = useState({ email: "demo@demo.io", password: "azerty" });
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const auth = useAuth();
 
@@ -47,7 +47,7 @@ export const LoginForm = () => {
                 },
                 body: JSON.stringify(dataToSend),
             });
-
+            console.log(response);
             if (response.status === 200) {
                 await setStorageItem("token", response.data.token);
                 login();
