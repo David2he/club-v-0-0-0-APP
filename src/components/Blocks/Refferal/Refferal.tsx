@@ -83,7 +83,7 @@ export const RefferalForm = () => {
                 <p>OU</p>
                 <span></span>
             </div>
-            <p>J'ai un code de parrainage</p>
+            <p style={{marginBottom: 0}}>J'ai un code de parrainage</p>
             <div>
                 <form className={style.formParrainage} onSubmit={handleSubmitRefferal}>
                     <div className={style.inputCodeContainer}>
@@ -100,7 +100,7 @@ export const RefferalForm = () => {
                         ))}
                     </div>
                     <button type="submit" value="Se connecter" className="submitButton">
-                        S'enrengistrer
+                        Créer un compte
                     </button>
                 </form>
             </div>

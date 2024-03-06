@@ -5,6 +5,7 @@ import { BlockText } from "../../components/Elements/BlockText/BlockText";
 import { RefferalCodeInput } from "../../components/Elements/RefferalCodeInput/RefferalCodeInput";
 
 import "./GetMyRefferal.scss";
+import { useEffect } from "react";
 
 const GetMyRefferal: React.FC = () => {
     const getRefferalCode = (): JSX.Element => {
@@ -14,6 +15,7 @@ const GetMyRefferal: React.FC = () => {
             </>
         );
     };
+
     return (
         <IonPage id="main-content" className="container">
             <div className="burgerContainer">
@@ -23,11 +25,14 @@ const GetMyRefferal: React.FC = () => {
                 <Header />
                 <div>
                     <BlockText
-                        title="Code Parrainage "
+                        title="Vos codes de parrainage"
                         text={getRefferalCode}
                         closable={false}
                         expandable={false}
                     />
+                </div>
+                <div>
+
                 </div>
             </div>
         </IonPage>

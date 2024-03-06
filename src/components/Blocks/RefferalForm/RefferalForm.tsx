@@ -99,7 +99,7 @@ export const RefferalForm = () => {
                         ))}
                     </div>
                     <button type="submit" value="Se connecter" className={style.submitButton}>
-                        S'enrengistrer
+                    Créer un compte
                     </button>
                 </form>
             </div>

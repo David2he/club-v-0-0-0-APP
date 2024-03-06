@@ -1,5 +1,5 @@
 import { IonApp, setupIonicReact } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
+import { IonReactHashRouter } from "@ionic/react-router";
 import { AuthProvider } from "./services/contexts/AuthContext";
 import { StripePaymentProvider } from "./services/contexts/StripePaymentContext";
 
@@ -16,9 +16,9 @@ const App: React.FC = () => (
     <AuthProvider>
         <StripePaymentProvider>
             <IonApp>
-                <IonReactRouter>
+                <IonReactHashRouter>
                     <AppRouter />
-                </IonReactRouter>
+                </IonReactHashRouter>
             </IonApp>
         </StripePaymentProvider>
     </AuthProvider>

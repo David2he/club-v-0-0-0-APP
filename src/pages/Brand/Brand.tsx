@@ -82,8 +82,8 @@ const Brand: React.FC = () => {
                 <div className="burgerContainer">
                     <HamburgerMenue />
                 </div>
+                <Header />
                 <div className="content">
-                    <Header />
                     {showToast?.type && showToast?.message && (
                         <Toast
                             typeLog={showToast.type}
@@ -126,8 +126,8 @@ const Brand: React.FC = () => {
                             </>
                         )}
                     </div>
-                    <Footer />
                 </div>
+                    <Footer />
             </div>
         </IonPage>
     );

@@ -1,6 +1,12 @@
 import style from "./BlockText.module.scss";
 import { useState, useRef, useEffect } from "react";
 import { BlockTextProps } from "../../../types/Types";
+
+/**
+ *  This component is a text block that can be either static, closable of foldable.
+ *   It takes a title and a text as props. The text can be a string, a JSX element or a function that returns a JSX element.
+ *  The block can be closed by clicking on the cross icon, and unfolded by clicking on the fold icon.
+ */
 export const BlockText = ({ title, text, closable, expandable }: BlockTextProps) => {
     const [isOpen, setIsOpen] = useState(true);
     const [isUnfolded, setIsUnfolded] = useState(false);

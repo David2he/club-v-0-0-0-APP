@@ -11,13 +11,13 @@ export const Footer = () => {
 
     return (
         <footer className={style.footer}>
-            <p>Le club</p>
+            <p>Le Club™</p>
             <p
                 onClick={() => {
-                    navigate("/MentionsLégales");
+                    navigate("/GetMyRefferal");
                 }}
             >
-                Mentions légal
+                Parrainage
             </p>
         </footer>
     );

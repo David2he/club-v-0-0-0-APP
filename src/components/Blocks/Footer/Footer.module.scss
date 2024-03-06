@@ -1,11 +1,20 @@
+@import "../../../../src/theme/variables.scss";
+
 .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
     align-items: center;
-    position: relative;
-    z-index: -1;
-    padding: 0.2rem 1rem 0.5rem 1rem;
+    background-color: var(--ion-background-color);
+    bottom: 0;
+    box-shadow: inset 0px 0px 8px -1px #ffd7009e;
+    display: flex;
+    font-size: 0.7em;
+    height: 3rem;
+    justify-content: space-around;
+    // padding: 0.2rem 1rem 0.5rem 1rem;
+    position: sticky;
+    width: 100%;
+    z-index: 1;
+}
+
+.footer p {
+    font-size: 1rem;
 }

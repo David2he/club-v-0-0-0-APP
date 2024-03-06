@@ -65,7 +65,7 @@ export const DisplayItemsHomePageMenber = () => {
                         allVendorsData.map((item: any) => {
                             return (
                                 <div
-                                    key={item}
+                                    key={item["@id"]}
                                     className={style.eachCells}
                                     onClick={() => navigateToBrand(item["@id"])}
                                 >

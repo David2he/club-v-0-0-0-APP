@@ -20,7 +20,6 @@ export const RefferalCodeInput = () => {
                         },
                     }
                 );
-
                 setReferralCode(response.data[0].nonce);
             } catch (error) {
                 console.log(error);
@@ -53,8 +52,8 @@ export const RefferalCodeInput = () => {
             <button onClick={copyToClipboard} className={style.copyButton}>
                 Copier le code
             </button>
-            <p>Vous pouvez faire profiter de ce code unique a l'un de vos contact</p>
-            <p>Envoyer lui votre code</p>
+            <p>Vous pouvez faire profiter de ce code unique à l'un de vos contacts</p>
+            {/* <p>Envoyer lui votre code</p> */}
         </div>
     );
 };
