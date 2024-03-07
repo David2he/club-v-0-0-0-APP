@@ -6,7 +6,8 @@ import style from "./RefferalCodeInput.module.scss";
 
 export const RefferalCodeInput = () => {
     const { getStorageItem } = useStorageServices();
-    const [referralCode, setReferralCode] = useState("12345");
+    const [referralCode, setReferralCode] = useState([]);
+    const [copiedSelectedCode, setCopiedSelectedCode] = "";
 
     useEffect(() => {
         const getRefferalCode = async () => {
@@ -17,7 +18,9 @@ export const RefferalCodeInput = () => {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setReferralCode(response.data[0].nonce);
+                console.log(typeof response.data);
+                console.log(response.data);
+                setReferralCode(response.data);
             } catch (error) {
                 console.log(error);
             }
@@ -25,9 +28,9 @@ export const RefferalCodeInput = () => {
         getRefferalCode();
     }, []);
 
-    const copyToClipboard = async () => {
+    const copyToClipboard = async (selectedNonce: string) => {
         try {
-            await navigator.clipboard.writeText(referralCode);
+            await navigator.clipboard.writeText(selectedNonce);
         } catch (err) {
             console.error("Failed to copy!", err);
         }
@@ -35,20 +38,31 @@ export const RefferalCodeInput = () => {
 
     return (
         <div className={style.inputContainer}>
-            {/* <input type="text" value={referralCode} readOnly /> */}
-            <Input
-                iconURL={"assets/iconInput/refferal.svg"}
-                altIcon={"iconLock"}
-                placeholder={"+33 6 43 ......"}
-                labelType={"phone"}
-                name='phone'
-                value={referralCode}
-                type='classic'
-            />
-            <div className={style.copyInput}></div>
-            <button onClick={copyToClipboard} className={style.copyButton}>
-                Copier le code
-            </button>
+            {referralCode.map((item: any) => {
+                return (
+                    <div key={item.nonce} className={style.insideInputContainer}>
+                        <Input
+                            iconURL={"assets/iconInput/refferal.svg"}
+                            altIcon={"iconLock"}
+                            placeholder={"+33 6 43 ......"}
+                            labelType={"phone"}
+                            name='phone'
+                            value={item.nonce}
+                            type='classic'
+                        />
+                        <div className={style.copyInput}></div>
+                        <button
+                            onClick={() => {
+                                copyToClipboard(item.nonce);
+                            }}
+                            className={style.copyButton}
+                        >
+                            Copier le code
+                        </button>
+                    </div>
+                );
+            })}
+
             <p>Vous pouvez faire profiter de ce code unique à l'un de vos contacts</p>
             {/* <p>Envoyer lui votre code</p> */}
         </div>

@@ -4,8 +4,8 @@
     justify-content: center;
     flex-direction: column;
     align-items: center;
-    gap: 1.5rem;
-    margin: 2rem;
+    gap: 3rem;
+
     p {
         @include Mtext_03;
         color: var(--ion-text-color);
@@ -16,4 +16,12 @@
 }
 .copyButton {
     @include button;
+}
+
+.insideInputContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
 }
