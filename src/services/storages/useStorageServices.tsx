@@ -28,9 +28,15 @@ export const useStorageServices = () => {
         window.location.reload();
     };
 
+    const clearSpecificStorage = async (key: string) => {
+        await storage.remove(key);
+        window.location.reload();
+    };
+
     return {
         setStorageItem,
         getStorageItem,
         clearStorage,
+        clearSpecificStorage,
     };
 };

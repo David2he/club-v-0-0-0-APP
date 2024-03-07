@@ -32,7 +32,7 @@ export const StripeCheckoutForm = () => {
         const result = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: "http://localhost:8100/SuccessFullPayment",
+                return_url: "https://lodge-club-app.s3-website.fr-par.scw.cloud/#/SuccessFullPayment",
             },
         });
 

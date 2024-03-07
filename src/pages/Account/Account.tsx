@@ -8,9 +8,9 @@ import { RegisterFormDataStateProps, ChangeUserInfoDataToSendType } from "../../
 import { useStorageServices } from "../../services/storages/useStorageServices";
 import style from "./Account.module.scss";
 import { useAuth } from "../../services/contexts/AuthContext";
-import { handlePostData, handlePatchData } from "../../services/api";
+import { handlePatchData } from "../../services/api";
 const Account: React.FC = () => {
-    const { getStorageItem } = useStorageServices();
+    const { getStorageItem, clearSpecificStorage } = useStorageServices();
     const auth = useAuth();
     const [formData, setFormData] = useState<RegisterFormDataStateProps>({
         email: "",
@@ -20,6 +20,23 @@ const Account: React.FC = () => {
         phone: "",
         refferal: "",
     });
+
+    useEffect(() => {
+        const getUserInfo = async () => {
+            const getUserInfo = await getStorageItem("userInfo");
+            if (getUserInfo) {
+                setFormData((prevState) => ({
+                    ...prevState,
+                    email: getUserInfo.email,
+                    fName: getUserInfo.userInfo.firstName,
+                    name: getUserInfo.userInfo.lastName,
+                    phone: getUserInfo.userInfo.phoneNumber,
+                }));
+            } else {
+            }
+        };
+        getUserInfo();
+    }, []);
 
     const submitChangeUserInfo = async () => {
         try {
@@ -44,6 +61,8 @@ const Account: React.FC = () => {
                     body: JSON.stringify(changeUserInfoDataToSend),
                 }
             );
+            clearSpecificStorage("userInfo");
+
             console.log(changeUserInfoResponse);
         } catch (error) {
             console.error("Erreur lors de l'envoi des données :", error);
@@ -51,28 +70,12 @@ const Account: React.FC = () => {
         }
     };
 
-    useEffect(() => {
-        const getUserInfo = async () => {
-            const getUserInfo = await getStorageItem("userInfo");
-            if (getUserInfo) {
-                setFormData((prevState) => ({
-                    ...prevState,
-                    email: getUserInfo.email,
-                    fName: getUserInfo.userInfo.firstName,
-                    name: getUserInfo.userInfo.lastName,
-                    phone: getUserInfo.userInfo.phoneNumber,
-                }));
-            } else {
-            }
-        };
-        getUserInfo();
-    }, [auth]);
     return (
-        <IonPage id="main-content" className="container">
-            <div className="burgerContainer">
+        <IonPage id='main-content' className='container'>
+            <div className='burgerContainer'>
                 <HamburgerMenue />
             </div>
-            <div className="content">
+            <div className='content'>
                 <Header />
 
                 <div className={style.accountContainer}>
@@ -82,7 +85,7 @@ const Account: React.FC = () => {
                             altIcon={"iconLock"}
                             placeholder={"Prénom"}
                             labelType={"name"}
-                            name="name"
+                            name='name'
                             value={formData.name}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -90,7 +93,7 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type="classic"
+                            type='classic'
                         />
 
                         {/* <Input
@@ -114,7 +117,7 @@ const Account: React.FC = () => {
                             altIcon={"iconMail"}
                             placeholder={"Nom"}
                             labelType={"fName"}
-                            name="fName"
+                            name='fName'
                             value={formData.fName}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -122,14 +125,14 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type="classic"
+                            type='classic'
                         />
                         <Input
                             iconURL={"assets/iconInput/email.svg"}
                             altIcon={"iconMail"}
                             placeholder={"Mail"}
                             labelType={"email"}
-                            name="email"
+                            name='email'
                             value={formData.email}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -137,14 +140,14 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type="classic"
+                            type='classic'
                         />
                         <Input
                             iconURL={"assets/iconInput/phone.svg"}
                             altIcon={"iconLock"}
                             placeholder={"+33 6 43 ......"}
                             labelType={"phone"}
-                            name="phone"
+                            name='phone'
                             value={formData.phone}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -152,7 +155,7 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type="classic"
+                            type='classic'
                         />
                     </div>
                     <button onClick={() => submitChangeUserInfo()} className={style.submitButton}>
