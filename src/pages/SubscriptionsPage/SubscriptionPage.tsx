@@ -12,7 +12,6 @@ const SubscriptionPage: React.FC = () => {
     const { getStorageItem, setStorageItem } = useStorageServices();
     const [subscriptionItems, setSubscriptionItems] = useState<any[]>([]);
     const history = useHistory();
-
     const auth = useAuth();
     if (!auth) {
         throw new Error("Auth context is undefined");
@@ -22,15 +21,12 @@ const SubscriptionPage: React.FC = () => {
         const getSubscriptionsOffer = async () => {
             try {
                 const token = await getStorageItem("token");
-                const response = await handleGetData(
-                    "https://lodge-api.aihclubs.com/api/subscriptions",
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
+                const response = await handleGetData("https://lodge-api.aihclubs.com/api/subscriptions", {
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 console.log(response.data);
                 setSubscriptionItems(response.data);
             } catch (error) {
@@ -63,11 +59,11 @@ const SubscriptionPage: React.FC = () => {
     };
 
     return (
-        <IonPage id="main-content" className="container">
-            <div className="headerContainer">
+        <IonPage id='main-content' className='container'>
+            <div className='headerContainer'>
                 <Header />
             </div>
-            <div className="content">
+            <div className='content'>
                 <div className={style.allSubscibeContainer}>
                     {subscriptionItems.map((item) => {
                         return (

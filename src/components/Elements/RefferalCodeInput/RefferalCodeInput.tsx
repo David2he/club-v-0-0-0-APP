@@ -12,14 +12,11 @@ export const RefferalCodeInput = () => {
         const getRefferalCode = async () => {
             const token = await getStorageItem("token");
             try {
-                const response = await handleGetData(
-                    "https://lodge-api.aihclubs.com/api/user/referrals",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
+                const response = await handleGetData("https://lodge-api.aihclubs.com/api/user/referrals", {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 setReferralCode(response.data[0].nonce);
             } catch (error) {
                 console.log(error);
@@ -44,9 +41,9 @@ export const RefferalCodeInput = () => {
                 altIcon={"iconLock"}
                 placeholder={"+33 6 43 ......"}
                 labelType={"phone"}
-                name="phone"
+                name='phone'
                 value={referralCode}
-                type="classic"
+                type='classic'
             />
             <div className={style.copyInput}></div>
             <button onClick={copyToClipboard} className={style.copyButton}>

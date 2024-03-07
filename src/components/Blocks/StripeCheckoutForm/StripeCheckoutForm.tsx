@@ -47,7 +47,7 @@ export const StripeCheckoutForm = () => {
     return (
         <form onSubmit={handleSubmit} className={style.formPayment}>
             <PaymentElement />
-            <button type="submit" disabled={!stripe} className={style.button}>
+            <button type='submit' disabled={!stripe} className={style.button}>
                 Payer
             </button>
         </form>
