@@ -4,11 +4,11 @@ import { Header } from "../../components/Blocks/Header/Header";
 import { HamburgerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
 import { RefferalCodeInput } from "../../components/Elements/RefferalCodeInput/RefferalCodeInput";
 import { Input } from "../../components/Elements/Input/Input";
-import { RegisterFormDataStateProps } from "../../types/Types";
+import { RegisterFormDataStateProps, ChangeUserInfoDataToSendType } from "../../types/Types";
 import { useStorageServices } from "../../services/storages/useStorageServices";
 import style from "./Account.module.scss";
 import { useAuth } from "../../services/contexts/AuthContext";
-import { handlePostData } from "../../services/api";
+import { handlePostData, handlePatchData } from "../../services/api";
 const Account: React.FC = () => {
     const { getStorageItem } = useStorageServices();
     const auth = useAuth();
@@ -22,30 +22,33 @@ const Account: React.FC = () => {
     });
 
     const submitChangeUserInfo = async () => {
-        // const registerDataToSend: RegisterFormDataToSendType = {
-        //     email: formData.email,
-        //     password: formData.password,
-        //     firstName: formData.fName,
-        //     lastName: formData.name,
-        //     phoneNumber: formData.phone,
-        // };
-        // try {
-        //     const dataToSend: LoginFormDataToSendType = {
-        //         username: formData.email,
-        //         password: formData.password,
-        //     };
-        //     const changeUserInfoResponse = await handlePostData(
-        //         "https://lodge-api.aihclubs.com/api/login",
-        //         {
-        //             headers: {
-        //                 "Content-Type": "application/json",
-        //             },
-        //             body: JSON.stringify(dataToSend),
-        //         }
-        //     );
-        // } catch (error) {
-        //     console.error("Erreur lors de l'envoi des données :", error);
-        // }
+        try {
+            const user = await getStorageItem("userInfo");
+            const token = await getStorageItem("token");
+            console.log(user.id);
+            const changeUserInfoDataToSend: ChangeUserInfoDataToSendType = {
+                email: formData.email,
+                userInfo: {
+                    firstName: formData.fName,
+                    lastName: formData.name,
+                    phoneNumber: formData.phone,
+                },
+            };
+            const changeUserInfoResponse = await handlePatchData(
+                `https://lodge-api.aihclubs.com/api/users/${user.id}`,
+                {
+                    headers: {
+                        "Content-Type": "application/merge-patch+json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(changeUserInfoDataToSend),
+                }
+            );
+            console.log(changeUserInfoResponse);
+        } catch (error) {
+            console.error("Erreur lors de l'envoi des données :", error);
+            console.log(error);
+        }
     };
 
     useEffect(() => {
@@ -90,21 +93,6 @@ const Account: React.FC = () => {
                             type="classic"
                         />
 
-                        <Input
-                            iconURL={"assets/iconInput/email.svg"}
-                            altIcon={"iconMail"}
-                            placeholder={"Mail"}
-                            labelType={"email"}
-                            name="email"
-                            value={formData.email}
-                            onChange={(e) =>
-                                setFormData((prevState) => ({
-                                    ...prevState,
-                                    [e.target.name]: e.target.value,
-                                }))
-                            }
-                            type="classic"
-                        />
                         {/* <Input
                             iconURL={"assets/iconInput/password.svg"}
                             altIcon={"iconLock"}
@@ -128,6 +116,21 @@ const Account: React.FC = () => {
                             labelType={"fName"}
                             name="fName"
                             value={formData.fName}
+                            onChange={(e) =>
+                                setFormData((prevState) => ({
+                                    ...prevState,
+                                    [e.target.name]: e.target.value,
+                                }))
+                            }
+                            type="classic"
+                        />
+                        <Input
+                            iconURL={"assets/iconInput/email.svg"}
+                            altIcon={"iconMail"}
+                            placeholder={"Mail"}
+                            labelType={"email"}
+                            name="email"
+                            value={formData.email}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
                                     ...prevState,

@@ -14,3 +14,11 @@ export const handlePostData = async (url: string, options: any): Promise<any> =>
 
     return response;
 };
+
+export const handlePatchData = async (url: string, options: any): Promise<any> => {
+    const response = await axios.patch(url, options.body, {
+        headers: options.headers,
+    });
+
+    return response;
+};
