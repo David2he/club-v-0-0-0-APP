@@ -59,6 +59,15 @@ export type RegisterFormDataToSendType = {
     nonce: string;
 };
 
+export interface ChangeUserInfoDataToSendType {
+    email: string;
+    userInfo: {
+        firstName: string;
+        lastName: string;
+        phoneNumber: string;
+    };
+}
+
 export type toastType = {
     type: string;
     message: string;
