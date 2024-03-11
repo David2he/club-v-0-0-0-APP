@@ -111,8 +111,8 @@ export const RegisterForm = () => {
     };
 
     const handleFormRegister = (direction: string) => {
-        const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
-        const phoneRegex = /^(\+33|0)[1-9](\d{2}){4}$/;
+        const emailRegex = /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+        const phoneRegex = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
 
         if (direction === "back") {
             if (step === 0) {
@@ -123,7 +123,8 @@ export const RegisterForm = () => {
             return;
         }
 
-        if (step === 0) {
+        if (step >= 0) {
+            console.log("entre 0 et 1");
             if (!emailRegex.test(formData.email)) {
                 setshowToast({
                     type: "error",
@@ -141,7 +142,9 @@ export const RegisterForm = () => {
                 });
                 return;
             }
-        } else if (step === 1) {
+        }
+        if (step >= 1) {
+            console.log("entre 1 et 2");
             if (formData.fName.length < 2 || formData.name.length < 2) {
                 setshowToast({
                     type: "error",
@@ -279,7 +282,6 @@ export const RegisterForm = () => {
 
     // STEP 3
     const lastCheckForm = () => {
-        console.log(Object.entries(formData));
         return (
             <>
                 {Object.entries(formData).map(([key, value]) => (
