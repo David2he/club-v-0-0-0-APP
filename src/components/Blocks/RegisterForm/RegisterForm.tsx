@@ -124,7 +124,6 @@ export const RegisterForm = () => {
         }
 
         if (step >= 0) {
-            console.log("entre 0 et 1");
             if (!emailRegex.test(formData.email)) {
                 setshowToast({
                     type: "error",
@@ -144,7 +143,6 @@ export const RegisterForm = () => {
             }
         }
         if (step >= 1) {
-            console.log("entre 1 et 2");
             if (formData.fName.length < 2 || formData.name.length < 2) {
                 setshowToast({
                     type: "error",

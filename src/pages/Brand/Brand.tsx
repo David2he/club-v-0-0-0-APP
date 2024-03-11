@@ -9,7 +9,6 @@ import { useStorageServices } from "../../services/storages/useStorageServices";
 import { toastType, BrandDataType } from "../../types/Types";
 import { Toast } from "../../components/Blocks/Toast/Toast";
 import { useState, useEffect } from "react";
-import data from "../../utils/dataTest/data.json";
 import { Footer } from "../../components/Blocks/Footer/Footer";
 import { handleGetData } from "../../services/api";
 import axios from "axios";
@@ -17,6 +16,7 @@ import style from "./Brand.module.scss";
 
 const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
+    const [waitingBrandActivation, setWaitingBrandActivation] = useState<boolean>(false);
     const [allBrandsData, setAllBrandsData] = useState<BrandDataType | null>(null);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const { id } = useParams<{ id: string }>();
@@ -46,13 +46,12 @@ const Brand: React.FC = () => {
 
     const handleActivateVIP = async () => {
         try {
+            setWaitingBrandActivation(true);
             const token = await getStorageItem("token");
             const getUserInfo = await getStorageItem("userInfo");
             const activateBrandDataToSend = {
                 email: getUserInfo.email,
             };
-            console.log(`https://lodge-api.aihclubs.com/api/vendor/${id}/activate`);
-            console.log(activateBrandDataToSend);
             const response = await handlePostData(
                 `https://lodge-api.aihclubs.com/api/vendor/${id}/activate`,
                 {
@@ -64,12 +63,14 @@ const Brand: React.FC = () => {
                 }
             );
             if (response.status === 200) {
+                setWaitingBrandActivation(false);
                 renderToast(
                     "succes",
                     "votre pass VIP est activé avec le mail suivant : " + getUserInfo.email
                 );
             }
         } catch (error) {
+            setWaitingBrandActivation(false);
             if (axios.isAxiosError(error) && error.message) {
                 console.error("Erreur lors de l'envoi des données :", error.message);
                 renderToast("error", `Erreur lors de l'envoi des données ${error.message}`);
@@ -92,6 +93,11 @@ const Brand: React.FC = () => {
                         />
                     )}
                     <div className={style.brandContainer}>
+                        {waitingBrandActivation && (
+                            <div className={style.loaderContainer}>
+                                <p>test</p>
+                            </div>
+                        )}
                         {allBrandsData && (
                             <>
                                 <div className={style.bannerImgContainer}>
@@ -127,7 +133,7 @@ const Brand: React.FC = () => {
                         )}
                     </div>
                 </div>
-                    <Footer />
+                <Footer />
             </div>
         </IonPage>
     );
