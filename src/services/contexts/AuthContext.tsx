@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import { useStorageServices } from "../storages/useStorageServices";
 import { AuthContextType, UserType } from "../../types/Types";
 import { handleGetData } from "../api";
-import { decodeToken } from "react-jwt";
+import { decodeToken, isExpired } from "react-jwt";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const useAuth = () => useContext(AuthContext);
@@ -19,13 +19,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         autoCheckLoginAndMember();
     }, []);
 
+    const expiredTokenCheck = (token: string) => {
+        console.log("token is expired ? : " + isExpired(token));
+        return isExpired(token);
+    };
+
     const login = () => {
         getInfoUser();
     };
 
     const logout = () => {
-        clearStorage();
         setIsLogin(false);
+        setIsMember(false);
+        clearStorage();
     };
 
     const checkSubscribe = async () => {
@@ -37,14 +43,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         if (token) {
             try {
                 const decoded = decodeToken(token) as { email: string; id: number };
-                const response = await handleGetData(
-                    `https://lodge-api.aihclubs.com/api/users/${decoded.id}`,
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
+                const response = await handleGetData(`https://lodge-api.aihclubs.com/api/users/${decoded.id}`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
                 if (response && response.data) {
                     const { email, roles, userInfo, isAdmin, isBrandAdmin } = response.data;
                     const userObject = {
@@ -84,8 +87,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         console.log("autoCheckLoginAndMember");
         const token = await getStorageItem("token");
         if (!token) {
-            setIsLogin(false);
-            setIsMember(false);
+            logout();
+            return;
+        }
+        const isTokenExpired = expiredTokenCheck(token);
+        if (isTokenExpired) {
+            logout();
             return;
         }
         const userInfo = await getStorageItem("userInfo");
@@ -102,8 +109,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 setIsLogin(true);
                 setIsMember(false);
             } else {
-                setIsLogin(false);
-                setIsMember(false);
+                logout();
             }
         } else {
             await getInfoUser();
