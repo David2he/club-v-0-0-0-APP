@@ -2,7 +2,6 @@ import { useState } from "react";
 import style from "./RegisterForm.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { useHistory } from "react-router";
-import { ButtonSubmit } from "../../Elements/Button/ButtonSubmit";
 import {
     RegisterFormDataStateProps,
     RegisterFormDataToSendType,
@@ -22,6 +21,11 @@ export const RegisterForm = () => {
     const auth = useAuth();
     const [step, setStep] = useState<number>(0);
     const currentUrl = new URL(window.location.href);
+    const hash = currentUrl.hash;
+
+    const index = hash.indexOf("code=");
+    let codeSubstring = "";
+    index !== -1 ? (codeSubstring = hash.substring(index + 5)) : null;
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const [formData, setFormData] = useState<RegisterFormDataStateProps>({
         email: "",
@@ -29,7 +33,7 @@ export const RegisterForm = () => {
         fName: "",
         name: "",
         phone: "",
-        refferal: currentUrl.searchParams.get("code") ?? "",
+        refferal: codeSubstring,
     });
 
     if (!auth) {

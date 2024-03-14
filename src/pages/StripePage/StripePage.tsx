@@ -11,7 +11,7 @@ import { Footer } from "../../components/Blocks/Footer/Footer";
 const StripePage: React.FC = () => {
     const { getStorageItem } = useStorageServices();
     const [clientSecret, setClientSecret] = useState<string | null>(null);
-    const stripePromise = loadStripe(import.meta.env.VITE_API_PUBLIC_KEY_STRIPE);
+    const stripePromise = loadStripe(import.meta.env.VITE_API_PUBLIC_KEY_STRIPE_TEST);
 
     useEffect(() => {
         const init = async () => {
@@ -33,9 +33,9 @@ const StripePage: React.FC = () => {
     const options = { clientSecret };
 
     return (
-        <IonPage id='main-content' className='allContainer'>
-            <div className='container'>
-                <div className='content'>
+        <IonPage id="main-content" className="allContainer">
+            <div className="container">
+                <div className="content">
                     <Header />
                 </div>
                 <div className={style.formPaymentContainer}>

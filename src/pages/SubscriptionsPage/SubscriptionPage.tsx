@@ -50,7 +50,6 @@ const SubscriptionPage: React.FC = () => {
                 },
                 body: JSON.stringify(registerDataToSend),
             });
-            console.log(response);
             await setStorageItem("clientSecret", response.data.clientSecret);
             history.push("/PaymentPage");
         } catch (error) {

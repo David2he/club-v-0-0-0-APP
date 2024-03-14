@@ -1,0 +1,44 @@
+{
+    "@id": "/api/vendors/1",
+    "@type": "Vendor",
+    "name": "FootKorner",
+
+    "erpEndpoints": [
+        {
+            "@type": "ErpEndpoint",
+            "@id": "/api/.well-known/genid/202a3258447552ee75b4",
+            "type": "fastmag",
+            "name": "fk_creds",
+            "credentials": {
+                "host": "https://opc35.fastmag.fr",
+                "pass": "fk@web",
+                "user": "EDIWEB",
+                "magasin": "CENTRAL",
+                "enseigne": "FORM_FKWEB"
+            }
+        }
+    ],
+    "ecomEndpoints": [
+        {
+            "@type": "EcomEndpoints",
+            "@id": "/api/.well-known/genid/13a43dad167f2a24f66e",
+            "type": "shopify",
+            "name": "string",
+            "credentials": {
+                "shop_name": "lodgeclub01",
+                "access_token": "fk@shpua_7cf94332e9f4bc0842686d11983fb1e2"
+            }
+        }
+    ],
+    "vendorGroup": ["/api/vendor_groups/2", "/api/vendor_groups/3"],
+    "brands": [
+        {
+            "@type": "Brand",
+            "@id": "/api/.well-known/genid/b9ee7e8c2ab3938193fe",
+            "title": "Foot Korner",
+            "description": "Foot Korner est le rendez-vous incontournable des amateurs de sport à la recherche de vêtements, chaussures et accessoires de marques reconnues comme Nike, Adidas et Asics.",
+            "discountTier1": 21,
+            "discountTier2": 12
+        }
+    ]
+}

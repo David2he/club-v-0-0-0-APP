@@ -95,7 +95,7 @@ const Brand: React.FC = () => {
                     <div className={style.brandContainer}>
                         {waitingBrandActivation && (
                             <div className={style.loaderContainer}>
-                                <p>test</p>
+                                <span className={style.loader}></span>
                             </div>
                         )}
                         {allBrandsData && (

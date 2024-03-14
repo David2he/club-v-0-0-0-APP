@@ -1,0 +1,46 @@
+{
+    "@id": "/api/vendors/4",
+    "@type": "Vendor",
+    "name": "teest",
+
+    "erpEndpoints": [
+        {
+            "@type": "ErpEndpoint",
+            "@id": "/api/.well-known/genid/0b8a56201a7cfff0b9c3",
+            "type": "fastmag",
+            "name": "fk_creds",
+            "credentials": {
+                "host": "https://opc35.fastmag.fr",
+                "pass": "fk@web",
+                "user": "EDIWEB",
+                "magasin": "CENTRAL",
+                "enseigne": "FORM_FKWEB"
+            }
+        }
+    ],
+    "ecomEndpoints": [
+        {
+            "@type": "EcomEndpoints",
+            "@id": "/api/.well-known/genid/dfb9038ed453e2c7aadd",
+            "type": "shopify",
+            "name": "string",
+            "credentials": {
+                "shop_name": "lodgeclub01",
+                "access_token": "shpua_7cf94332e9f4bc0842686d11983fb1e2"
+            }
+        }
+    ],
+    "vendorGroup": [],
+    "brands": [
+        {
+            "@type": "Brand",
+            "@id": "/api/.well-known/genid/036e382638bda2ceab56",
+            "logo": "https://lodgeclubmedia.s3.fr-par.scw.cloud/lodge-media/FootKornerlogo.png",
+            "banner": "https://lodgeclubmedia.s3.fr-par.scw.cloud/lodge-media/FootKornerLineImg.png",
+            "title": "test",
+            "description": "string",
+            "discountTier1": 20,
+            "discountTier2": 28
+        }
+    ]
+}
