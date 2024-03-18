@@ -31,9 +31,7 @@ const GetMyRefferal: React.FC = () => {
                         expandable={false}
                     />
                 </div>
-                <div>
-
-                </div>
+                <div></div>
             </div>
         </IonPage>
     );
