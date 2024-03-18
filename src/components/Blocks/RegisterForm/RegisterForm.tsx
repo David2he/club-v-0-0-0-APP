@@ -2,12 +2,7 @@ import { useState } from "react";
 import style from "./RegisterForm.module.scss";
 import { Input } from "../../Elements/Input/Input";
 import { useHistory } from "react-router";
-import {
-    RegisterFormDataStateProps,
-    RegisterFormDataToSendType,
-    LoginFormDataToSendType,
-    toastType,
-} from "../../../types/Types";
+import { RegisterFormDataStateProps, RegisterFormDataToSendType, LoginFormDataToSendType, toastType } from "../../../types/Types";
 import { useStorageServices } from "../../../services/storages/useStorageServices";
 import { useAuth } from "../../../services/contexts/AuthContext";
 import { Toast } from "../Toast/Toast";
@@ -71,27 +66,21 @@ export const RegisterForm = () => {
                 });
                 return;
             }
-            const registerResponse = await handlePostData(
-                "https://lodge-api.aihclubs.com/api/users",
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(registerDataToSend),
-                }
-            );
+            const registerResponse = await handlePostData("https://lodge-api.aihclubs.com/api/users", {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(registerDataToSend),
+            });
             console.log(registerResponse.status);
             if (registerResponse.status === 201) {
                 console.log(registerResponse.status);
-                const loginResponse = await handlePostData(
-                    "https://lodge-api.aihclubs.com/api/login",
-                    {
-                        headers: {
-                            "Content-Type": "application/json",
-                        },
-                        body: JSON.stringify(loginDataToSend),
-                    }
-                );
+                const loginResponse = await handlePostData("https://lodge-api.aihclubs.com/api/login", {
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(loginDataToSend),
+                });
                 if (loginResponse.status === 200) {
                     await setStorageItem("token", loginResponse.data.token);
                     login();
@@ -156,7 +145,7 @@ export const RegisterForm = () => {
                 return;
             }
 
-            if (!phoneRegex.test(formData.phone)) {
+            if (!phoneRegex.test(formData.phone.replace(/\s+/g, ""))) {
                 setshowToast({
                     type: "error",
                     message: "Le numéro de téléphone n'est pas valide",
