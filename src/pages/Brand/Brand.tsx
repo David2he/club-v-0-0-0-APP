@@ -14,6 +14,7 @@ import { handleGetData } from "../../services/api";
 import axios from "axios";
 import style from "./Brand.module.scss";
 
+// Display a brand page
 const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
     const [waitingBrandActivation, setWaitingBrandActivation] = useState<boolean>(false);
@@ -56,13 +57,17 @@ const Brand: React.FC = () => {
     useEffect(() => {
         const getAllVendorInfo = async () => {
             const getUserInfo = await getStorageItem("userInfo");
+            const token = await getStorageItem("token");
             const activateBrandDataToSend = {
                 email: getUserInfo.email,
             };
             setMail(getUserInfo.email);
             try {
                 const response = await handleGetData(`https://lodge-api.aihclubs.com/api/vendors/${id}`, {
-                    headers: {},
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
                 });
                 setAllBrandsData(response.data.brands[0]);
             } catch (error) {

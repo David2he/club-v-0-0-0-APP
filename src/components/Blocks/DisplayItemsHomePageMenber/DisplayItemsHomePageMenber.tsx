@@ -4,19 +4,24 @@ import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { handleGetData } from "../../../services/api";
 import { VendorDataType } from "../../../types/Types";
+import { useStorageServices } from "../../../services/storages/useStorageServices";
 export const DisplayItemsHomePageMenber = () => {
+    const { getStorageItem } = useStorageServices();
     const [typeOFdisplay, setTypeOFdisplay] = useState("line");
     const history = useHistory();
     const [allVendorsData, setAllVendorsData] = useState<VendorDataType[] | null>(null);
     const displayThemAll = (): JSX.Element => {
         useEffect(() => {
             const getAllVendorInfo = async () => {
+                const token = await getStorageItem("token");
+
                 try {
                     const response = await handleGetData(
                         "https://lodge-api.aihclubs.com/api/vendors",
-                        {
-                            headers: {},
-                        }
+                        {headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`,
+                        }}
                     );
                     setAllVendorsData(response.data["hydra:member"]);
                 } catch (error) {

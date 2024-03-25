@@ -33,10 +33,10 @@ const HomePageMenber: React.FC = () => {
         return (
             <div className="howItWorksTextContainer">
                 <p>
-                    <span>1</span>. Clic sur une des marques ci-dessous
+                    <span>1</span>. Clique sur une des marques ci-dessous
                 </p>
                 <p>
-                    <span>2</span>. Clic sur « Activer mon pass VIP »
+                    <span>2</span>. Clique sur « Activer mon pass VIP »
                 </p>
                 <p>
                     <span>3</span>. Rdv en magasin ou sur le site internet de la marque
