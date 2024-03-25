@@ -3,9 +3,9 @@ import { Header } from "../../components/Blocks/Header/Header";
 import { useHistory } from "react-router";
 import { useStorageServices } from "../../services/storages/useStorageServices";
 import { useAuth } from "../../services/contexts/AuthContext";
+
 import style from "./SuccessPayementPage.module.scss";
 const SuccessPayementPage: React.FC = () => {
-    const history = useHistory();
     const auth = useAuth();
     if (!auth) {
         throw new Error("Auth context is undefined");
@@ -14,9 +14,8 @@ const SuccessPayementPage: React.FC = () => {
     const { logout } = auth;
     const { setStorageItem } = useStorageServices();
     const handleUserPay = async () => {
-        await setStorageItem("isMember", "true");
         logout();
-        history.push("/");
+        // qsdqsdqssq@gmail.io
     };
     return (
         <IonPage id="main-content" className="container">

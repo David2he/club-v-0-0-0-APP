@@ -42,7 +42,6 @@ const Account: React.FC = () => {
         try {
             const user = await getStorageItem("userInfo");
             const token = await getStorageItem("token");
-            console.log(user.id);
             const changeUserInfoDataToSend: ChangeUserInfoDataToSendType = {
                 email: formData.email,
                 userInfo: {
@@ -51,19 +50,15 @@ const Account: React.FC = () => {
                     phoneNumber: formData.phone,
                 },
             };
-            const changeUserInfoResponse = await handlePatchData(
-                `https://lodge-api.aihclubs.com/api/users/${user.id}`,
-                {
-                    headers: {
-                        "Content-Type": "application/merge-patch+json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(changeUserInfoDataToSend),
-                }
-            );
-            clearSpecificStorage("userInfo");
-
+            const changeUserInfoResponse = await handlePatchData(`https://lodge-api.aihclubs.com/api/users/${user.id}`, {
+                headers: {
+                    "Content-Type": "application/merge-patch+json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(changeUserInfoDataToSend),
+            });
             console.log(changeUserInfoResponse);
+            clearSpecificStorage("userInfo");
         } catch (error) {
             console.error("Erreur lors de l'envoi des données :", error);
             console.log(error);
@@ -71,11 +66,11 @@ const Account: React.FC = () => {
     };
 
     return (
-        <IonPage id='main-content' className='container'>
-            <div className='burgerContainer'>
+        <IonPage id="main-content" className="container">
+            <div className="burgerContainer">
                 <HamburgerMenue />
             </div>
-            <div className='content'>
+            <div className="content">
                 <Header />
 
                 <div className={style.accountContainer}>
@@ -85,7 +80,7 @@ const Account: React.FC = () => {
                             altIcon={"iconLock"}
                             placeholder={"Prénom"}
                             labelType={"name"}
-                            name='name'
+                            name="name"
                             value={formData.name}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -93,7 +88,7 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type='classic'
+                            type="classic"
                         />
 
                         {/* <Input
@@ -117,7 +112,7 @@ const Account: React.FC = () => {
                             altIcon={"iconMail"}
                             placeholder={"Nom"}
                             labelType={"fName"}
-                            name='fName'
+                            name="fName"
                             value={formData.fName}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -125,14 +120,14 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type='classic'
+                            type="classic"
                         />
                         <Input
                             iconURL={"assets/iconInput/email.svg"}
                             altIcon={"iconMail"}
                             placeholder={"Mail"}
                             labelType={"email"}
-                            name='email'
+                            name="email"
                             value={formData.email}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -140,14 +135,14 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type='classic'
+                            type="classic"
                         />
                         <Input
                             iconURL={"assets/iconInput/phone.svg"}
                             altIcon={"iconLock"}
                             placeholder={"+33 6 43 ......"}
                             labelType={"phone"}
-                            name='phone'
+                            name="phone"
                             value={formData.phone}
                             onChange={(e) =>
                                 setFormData((prevState) => ({
@@ -155,7 +150,7 @@ const Account: React.FC = () => {
                                     [e.target.name]: e.target.value,
                                 }))
                             }
-                            type='classic'
+                            type="classic"
                         />
                     </div>
                     <button onClick={() => submitChangeUserInfo()} className={style.submitButton}>

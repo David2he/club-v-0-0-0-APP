@@ -1,12 +1,21 @@
 import style from "./Footer.module.scss";
 import { useHistory } from "react-router";
 import { useAuth } from "../../../services/contexts/AuthContext";
-import { useEffect } from "react";
+import { useStorageServices } from "../../../services/storages/useStorageServices";
+
 export const Footer = () => {
     const auth = useAuth();
     const history = useHistory();
     const navigate = (where: string) => {
         history.push(where);
+    };
+
+    const { clearStorage } = useStorageServices();
+
+    const disconnect = () => {
+        clearStorage();
+        history.push("/");
+        window.location.reload();
     };
 
     return (
@@ -19,6 +28,7 @@ export const Footer = () => {
             >
                 Parrainage
             </p>
+            <p onClick={() => disconnect()}>Se deconnecter</p>
         </footer>
     );
 };

@@ -29,8 +29,11 @@
         left: 0;
         width: 100%;
         height: 3px;
-        animation: loaderShowModal 5s ease-in-out forwards;
         transform-origin: left;
+        animation-name: loaderShowModal;
+        animation-duration: 5s;
+        animation-timing-function: ease-in-out;
+        animation-fill-mode: forwards;
     }
     p {
         padding: 0;

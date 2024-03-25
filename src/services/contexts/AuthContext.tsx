@@ -84,7 +84,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     };
 
     const autoCheckLoginAndMember = async () => {
-        console.log("autoCheckLoginAndMember");
         const token = await getStorageItem("token");
         if (!token) {
             logout();
@@ -98,9 +97,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         const userInfo = await getStorageItem("userInfo");
         if (userInfo) {
             if (
-                userInfo.roles.some((role: string) =>
-                    ["ROLE_MEMBER_ACTIVE", "ROLE_ADMIN", "ROLE_BRAND_ADMIN"].includes(role)
-                ) &&
+                userInfo.roles.some((role: string) => ["ROLE_MEMBER_ACTIVE", "ROLE_ADMIN", "ROLE_BRAND_ADMIN"].includes(role)) &&
                 userInfo.token
             ) {
                 setIsMember(true);

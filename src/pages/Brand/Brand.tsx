@@ -1,6 +1,6 @@
 import { IonPage } from "@ionic/react";
 import { Header } from "../../components/Blocks/Header/Header";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { HamburgerMenue } from "../../components/Blocks/HamburgerMenue/HamburgerMenue";
 import { BlockText } from "../../components/Elements/BlockText/BlockText";
 import { ButtonSubmit } from "../../components/Elements/Button/ButtonSubmit";
@@ -18,24 +18,52 @@ const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
     const [waitingBrandActivation, setWaitingBrandActivation] = useState<boolean>(false);
     const [allBrandsData, setAllBrandsData] = useState<BrandDataType | null>(null);
-    const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
+    const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0, time: 5000, infinite: false });
     const { id } = useParams<{ id: string }>();
+    const [mail, setMail] = useState<string>("");
 
-    // const vendorData = data[id as keyof typeof data];
+    const renderToast = (
+        type: string,
+        message: string | JSX.Element[] | (() => JSX.Element),
+        time: number | undefined,
+        infinite: boolean
+    ) => {
+        setshowToast({ type, message, key: Date.now(), time, infinite });
+    };
 
-    const renderToast = (type: string, message: string) => {
-        setshowToast({ type, message, key: Date.now() });
+    const validationMessage = () => {
+        return (
+            <div className={style.messageSuccesActivationToast}>
+                <p>
+                    <span>Votre compte a bien été activé</span>
+                </p>
+                <p>
+                    Rdv en magasin ou sur le site internet de la marque <span>{mail}</span>
+                </p>
+                <p>
+                    Au moment de payer, indique le même mail que celui de ton compte Club <span>{mail}</span>
+                </p>
+                <p>
+                    Lien de la boutique activée
+                    <a href="https://lodgeclub01.myshopify.com/" target="_blank" rel="noopener noreferrer">
+                        https://lodgeclub01.myshopify.com/
+                    </a>
+                </p>
+            </div>
+        );
     };
 
     useEffect(() => {
         const getAllVendorInfo = async () => {
+            const getUserInfo = await getStorageItem("userInfo");
+            const activateBrandDataToSend = {
+                email: getUserInfo.email,
+            };
+            setMail(getUserInfo.email);
             try {
-                const response = await handleGetData(
-                    `https://lodge-api.aihclubs.com/api/vendors/${id}`,
-                    {
-                        headers: {},
-                    }
-                );
+                const response = await handleGetData(`https://lodge-api.aihclubs.com/api/vendors/${id}`, {
+                    headers: {},
+                });
                 setAllBrandsData(response.data.brands[0]);
             } catch (error) {
                 console.log(error);
@@ -48,32 +76,27 @@ const Brand: React.FC = () => {
         try {
             setWaitingBrandActivation(true);
             const token = await getStorageItem("token");
-            const getUserInfo = await getStorageItem("userInfo");
             const activateBrandDataToSend = {
-                email: getUserInfo.email,
+                email: mail,
             };
-            const response = await handlePostData(
-                `https://lodge-api.aihclubs.com/api/vendor/${id}/activate`,
-                {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(activateBrandDataToSend),
-                }
-            );
+
+            const response = await handlePostData(`https://lodge-api.aihclubs.com/api/vendor/${id}/activate`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(activateBrandDataToSend),
+            });
             if (response.status === 200) {
                 setWaitingBrandActivation(false);
-                renderToast(
-                    "succes",
-                    "votre pass VIP est activé avec le mail suivant : " + getUserInfo.email
-                );
+
+                renderToast("succes", validationMessage, 9000, true);
             }
         } catch (error) {
             setWaitingBrandActivation(false);
             if (axios.isAxiosError(error) && error.message) {
                 console.error("Erreur lors de l'envoi des données :", error.message);
-                renderToast("error", `Erreur lors de l'envoi des données ${error.message}`);
+                renderToast("error", `Erreur lors de l'envoi des données ${error.message}`, 5000, false);
             }
         }
     };
@@ -90,6 +113,8 @@ const Brand: React.FC = () => {
                             typeLog={showToast.type}
                             message={showToast.message}
                             key={showToast.key}
+                            time={showToast.time}
+                            infinite={showToast.infinite}
                         />
                     )}
                     <div className={style.brandContainer}>
@@ -104,15 +129,8 @@ const Brand: React.FC = () => {
                                     <img src={allBrandsData.banner} alt="banner" />
                                 </div>
                                 <div className={style.brandMainInfoContainer}>
-                                    {allBrandsData && (
-                                        <img
-                                            src={allBrandsData.logo}
-                                            className={style.logoImgContainer}
-                                            alt="logo"
-                                        />
-                                    )}
+                                    {allBrandsData && <img src={allBrandsData.logo} className={style.logoImgContainer} alt="logo" />}
                                     <h1 className={style.brandName}>{allBrandsData.title}</h1>
-
                                     <BlockText
                                         title="Info de la marque"
                                         text={allBrandsData.description}
@@ -122,11 +140,7 @@ const Brand: React.FC = () => {
                                 </div>
                                 <div className={style.activeBrandButtonContainer}>
                                     <div className={style.test}>
-                                        <ButtonSubmit
-                                            text="Activer mon pass VIP"
-                                            size="large"
-                                            callFunctionOnClick={handleActivateVIP}
-                                        />
+                                        <ButtonSubmit text="Activer mon pass VIP" size="large" callFunctionOnClick={handleActivateVIP} />
                                     </div>
                                 </div>
                             </>

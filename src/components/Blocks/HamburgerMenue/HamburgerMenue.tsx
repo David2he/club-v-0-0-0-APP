@@ -14,6 +14,8 @@ export const HamburgerMenue = () => {
 
     const disconnect = () => {
         clearStorage();
+        history.push("/");
+        window.location.reload();
     };
 
     useEffect(() => {
@@ -29,23 +31,16 @@ export const HamburgerMenue = () => {
     }, [hamburgerMenueRef]);
     return (
         <div className={style.hamburgueurContainer} ref={hamburgerMenueRef}>
-            <div
-                className={style.hamburgerIcon}
-                onClick={() => setOpnMenu((prevOpnMenu) => !prevOpnMenu)}
-            >
+            <div className={style.hamburgerIcon} onClick={() => setOpnMenu((prevOpnMenu) => !prevOpnMenu)}>
                 <span></span>
                 <span></span>
                 <span></span>
             </div>
-            <div
-                className={`${style.containerHamburger} ${
-                    opnMenu ? style.openMenu : style.closeMenu
-                }`}
-            >
+            <div className={`${style.containerHamburger} ${opnMenu ? style.openMenu : style.closeMenu}`}>
                 <p onClick={() => navigate("/HomePageMember")}>Accueil</p>
                 <p onClick={() => navigate("/Account")}>Mon compte</p>
                 <p onClick={() => navigate("/GetMyRefferal")}>Parrainer</p>
-                <p>Contact</p>
+                <p onClick={() => navigate("/Contact")}>Contact</p>
                 <p onClick={() => disconnect()}>Se deconnecter</p>
             </div>
         </div>

@@ -25,7 +25,9 @@ export type ParraingeFormProps = {
 
 export type toastProps = {
     typeLog: string;
-    message: string;
+    message: string | JSX.Element[] | (() => JSX.Element);
+    time?: number;
+    infinite?: boolean;
 };
 
 export type RegisterFormDataStateProps = {
@@ -70,8 +72,10 @@ export interface ChangeUserInfoDataToSendType {
 
 export type toastType = {
     type: string;
-    message: string;
+    message: string | JSX.Element[] | (() => JSX.Element);
     key?: number;
+    time?: number;
+    infinite?: boolean;
 };
 
 export type LoginFormDataToSendType = {

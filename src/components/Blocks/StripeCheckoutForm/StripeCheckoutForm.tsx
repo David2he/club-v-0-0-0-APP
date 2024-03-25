@@ -33,6 +33,7 @@ export const StripeCheckoutForm = () => {
             elements,
             confirmParams: {
                 return_url: "https://lodge-club-app.s3-website.fr-par.scw.cloud/#/SuccessFullPayment",
+                // return_url: "http://localhost:8100/#/SuccessFullPayment",
             },
         });
 
@@ -47,7 +48,7 @@ export const StripeCheckoutForm = () => {
     return (
         <form onSubmit={handleSubmit} className={style.formPayment}>
             <PaymentElement />
-            <button type='submit' disabled={!stripe} className={style.button}>
+            <button type="submit" disabled={!stripe} className={style.button}>
                 Payer
             </button>
         </form>

@@ -23,9 +23,16 @@ export const useStorageServices = () => {
     };
 
     const clearStorage = async () => {
+        const userInfoKey = "userInfo";
+        let email = { email: "" };
+        try {
+            const userInfo = await storage.get(userInfoKey);
+            email = userInfo.email;
+        } catch (error) {
+            console.log("email not found in storage");
+        }
         await storage.clear();
-        history.push("/");
-        window.location.reload();
+        await storage.set(userInfoKey, { email: email });
     };
 
     const clearSpecificStorage = async (key: string) => {

@@ -12,6 +12,7 @@ import SuccessPaymentPage from "../pages/SuccessPayementPage/SuccessPayementPage
 import LegalNoticePage from "../pages/LegalNoticePage/LegalNoticePage";
 import { ProtectedRoute } from "../utils/Routing/ProtectedRoutes";
 import StripePage from "../pages/StripePage/StripePage";
+import Contact from "../pages/Contact/Contact";
 import PageNotFound from "../pages/PageNotFound";
 
 const AppRouter: React.FC = () => {
@@ -42,13 +43,20 @@ const AppRouter: React.FC = () => {
                 <ProtectedRoute
                     exact
                     path="/SuccessFullPayment"
-                    visitorComponent={Register}
+                    visitorComponent={Home}
                     loggedInComponent={SuccessPaymentPage}
                     memberLoggedInComponent={SuccessPaymentPage}
                 />
                 <ProtectedRoute
                     exact
                     path="/"
+                    visitorComponent={Home}
+                    loggedInComponent={SubscriptionPage}
+                    memberLoggedInComponent={HomePageMenber}
+                />
+                <ProtectedRoute
+                    exact
+                    path="/Home"
                     visitorComponent={Home}
                     loggedInComponent={SubscriptionPage}
                     memberLoggedInComponent={HomePageMenber}
@@ -80,6 +88,13 @@ const AppRouter: React.FC = () => {
                     visitorComponent={Home}
                     loggedInComponent={Account}
                     memberLoggedInComponent={Account}
+                />
+                <ProtectedRoute
+                    exact
+                    path="/Contact"
+                    visitorComponent={Contact}
+                    loggedInComponent={Contact}
+                    memberLoggedInComponent={Contact}
                 />
                 <ProtectedRoute
                     exact

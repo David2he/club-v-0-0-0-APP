@@ -72,9 +72,9 @@ export const RegisterForm = () => {
                 },
                 body: JSON.stringify(registerDataToSend),
             });
-            console.log(registerResponse.status);
+            // console.log(registerResponse.status);
             if (registerResponse.status === 201) {
-                console.log(registerResponse.status);
+                // console.log(registerResponse.status);
                 const loginResponse = await handlePostData("https://lodge-api.aihclubs.com/api/login", {
                     headers: {
                         "Content-Type": "application/json",

@@ -1,0 +1,7 @@
+@import "../../theme/rules.scss";
+.text {
+    @include Mtext_03;
+    color: var(--ion-white-color);
+    font-size: 0.9rem;
+    margin-top: 0;
+}

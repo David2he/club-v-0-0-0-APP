@@ -1,6 +1,5 @@
-import React, { useState, FormEvent } from "react";
+import React, { useState, FormEvent, useEffect } from "react";
 import { useAuth } from "../../../services/contexts/AuthContext";
-import { useHistory } from "react-router-dom";
 import { useStorageServices } from "../../../services/storages/useStorageServices";
 import { Input } from "../../Elements/Input/Input";
 import { handlePostData } from "../../../services/api";
@@ -11,13 +10,30 @@ import style from "./LoginForm.module.scss";
 
 export const LoginForm = () => {
     const { setStorageItem, getStorageItem } = useStorageServices();
-    const [formData, setFormData] = useState({ email: "demo@demo.io", password: "azerty" });
+    const [formData, setFormData] = useState({ email: "", password: "" });
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0 });
     const auth = useAuth();
 
     if (!auth) {
         throw new Error("Auth context is undefined");
     }
+
+    useEffect(() => {
+        const getuserMail = async () => {
+            try {
+                const getUserInfo = await getStorageItem("userInfo");
+                const emailInStorage = getUserInfo.email;
+
+                setFormData((prevState) => ({
+                    ...prevState,
+                    email: emailInStorage,
+                }));
+            } catch (error) {
+                console.log("email not found");
+            }
+        };
+        getuserMail();
+    }, []);
 
     const { login } = auth;
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -47,7 +63,7 @@ export const LoginForm = () => {
                 },
                 body: JSON.stringify(dataToSend),
             });
-            console.log(response);
+
             if (response.status === 200) {
                 await setStorageItem("token", response.data.token);
                 login();
@@ -62,11 +78,7 @@ export const LoginForm = () => {
         <>
             <form id="container" className={style.formContainer} onSubmit={handleSubmit}>
                 {showToast?.type && showToast?.message && (
-                    <Toast
-                        typeLog={showToast.type}
-                        message={showToast.message}
-                        key={showToast.key}
-                    />
+                    <Toast typeLog={showToast.type} message={showToast.message} key={showToast.key} />
                 )}
                 <div className={style.inputContainer}>
                     <Input

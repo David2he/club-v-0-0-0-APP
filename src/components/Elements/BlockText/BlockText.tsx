@@ -46,10 +46,7 @@ export const BlockText = ({ title, text, closable, expandable }: BlockTextProps)
             <div className={style.titleANDCrossContainer}>
                 <p className={style.title}>{title}</p>
                 {closable ? (
-                    <div
-                        className={style.actionPosition}
-                        onClick={() => setIsOpen((prevIsopen) => !prevIsopen)}
-                    >
+                    <div className={style.actionPosition} onClick={() => setIsOpen((prevIsopen) => !prevIsopen)}>
                         <img src="./assets/iconBlockText/closeCross.svg" />
                     </div>
                 ) : expandable ? (
@@ -63,13 +60,7 @@ export const BlockText = ({ title, text, closable, expandable }: BlockTextProps)
                 ) : null}
             </div>
             <div ref={contentRef} className={`${style.contentContainer} `}>
-                {typeof text === "string" ? (
-                    <p className={style.text}>{text}</p>
-                ) : typeof text === "function" ? (
-                    text()
-                ) : (
-                    text
-                )}
+                {typeof text === "string" ? <p className={style.text}>{text}</p> : typeof text === "function" ? text() : text}
             </div>
         </div>
     );

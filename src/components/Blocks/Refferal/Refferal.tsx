@@ -22,7 +22,7 @@ export const RefferalForm = () => {
                 let pastedData = e.clipboardData?.getData("text").replace(/\s+/g, "") || "";
                 if (pastedData.length >= 1) {
                     pastedData.split("").forEach((char, i) => {
-                        console.log(char, i, inputElements[i]);
+                        // console.log(char, i, inputElements[i]);
                         if (inputElements[i]) {
                             inputElements[i]!.value = char; // Add null check
                             inputElements[i]!.dispatchEvent(new Event("input", { bubbles: true })); // Déclencher manuellement l'événement input
@@ -83,7 +83,7 @@ export const RefferalForm = () => {
                 <p>OU</p>
                 <span></span>
             </div>
-            <p style={{marginBottom: 0}}>J'ai un code de parrainage</p>
+            <p style={{ marginBottom: 0 }}>J'ai un code de parrainage</p>
             <div>
                 <form className={style.formParrainage} onSubmit={handleSubmitRefferal}>
                     <div className={style.inputCodeContainer}>
