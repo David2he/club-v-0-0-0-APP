@@ -23,7 +23,6 @@ export const LoginForm = () => {
             try {
                 const getUserInfo = await getStorageItem("userInfo");
                 const emailInStorage = getUserInfo.email;
-
                 setFormData((prevState) => ({
                     ...prevState,
                     email: emailInStorage,

@@ -14,6 +14,7 @@ import { ProtectedRoute } from "../utils/Routing/ProtectedRoutes";
 import StripePage from "../pages/StripePage/StripePage";
 import Contact from "../pages/Contact/Contact";
 import PageNotFound from "../pages/PageNotFound";
+import Club from "../pages/Club/Club";
 
 const AppRouter: React.FC = () => {
     return (
@@ -96,6 +97,7 @@ const AppRouter: React.FC = () => {
                     loggedInComponent={Contact}
                     memberLoggedInComponent={Contact}
                 />
+                <ProtectedRoute exact path="/Club" visitorComponent={Club} loggedInComponent={Club} memberLoggedInComponent={Club} />
                 <ProtectedRoute
                     exact
                     path="/MentionsLégales"

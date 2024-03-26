@@ -24,7 +24,7 @@ export const useStorageServices = () => {
 
     const clearStorage = async () => {
         const userInfoKey = "userInfo";
-        let email = { email: "" };
+        let email = "";
         try {
             const userInfo = await storage.get(userInfoKey);
             email = userInfo.email;

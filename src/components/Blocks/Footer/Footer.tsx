@@ -20,7 +20,13 @@ export const Footer = () => {
 
     return (
         <footer className={style.footer}>
-            <p>Le Club™</p>
+            <p
+                onClick={() => {
+                    navigate("/Club");
+                }}
+            >
+                Le Club™
+            </p>
             <p
                 onClick={() => {
                     navigate("/GetMyRefferal");

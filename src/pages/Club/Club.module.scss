@@ -1,0 +1,13 @@
+@import "../../theme/rules.scss";
+
+.textContainer {
+    p {
+        @include Mtext_03;
+        color: var(--ion-white-color);
+        font-size: 0.9rem;
+        margin-top: 0;
+    }
+    span {
+        color: var(--ion-text-color) !important;
+    }
+}
