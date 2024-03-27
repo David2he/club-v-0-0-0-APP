@@ -11,9 +11,14 @@ import { Toast } from "../../components/Blocks/Toast/Toast";
 import { useState, useEffect } from "react";
 import { Footer } from "../../components/Blocks/Footer/Footer";
 import { handleGetData } from "../../services/api";
+import { SuccessActivationBrandBlock } from "../../components/Blocks/SuccessActivationBrandBlock/SuccessActivationBrandBlock";
 import axios from "axios";
 import style from "./Brand.module.scss";
 
+interface UserInfo {
+    mail: string;
+    id: string;
+}
 // Display a brand page
 const Brand: React.FC = () => {
     const { getStorageItem } = useStorageServices();
@@ -21,7 +26,11 @@ const Brand: React.FC = () => {
     const [allBrandsData, setAllBrandsData] = useState<BrandDataType | null>(null);
     const [showToast, setshowToast] = useState<toastType>({ type: "", message: "", key: 0, time: 5000, infinite: false });
     const { id } = useParams<{ id: string }>();
-    const [mail, setMail] = useState<string>("");
+    const [userInfo, setuserInfo] = useState<UserInfo>({
+        mail: "",
+        id: "",
+    });
+    const [brandAlreadySubscribed, setBrandAlreadySubscribed] = useState<boolean | null>(null);
 
     const renderToast = (
         type: string,
@@ -39,10 +48,10 @@ const Brand: React.FC = () => {
                     <span>Votre compte a bien été activé</span>
                 </p>
                 <p>
-                    Rdv en magasin ou sur le site internet de la marque <span>{mail}</span>
+                    Rdv en magasin ou sur le site internet de la marque <span>{userInfo.mail}</span>
                 </p>
                 <p>
-                    Au moment de payer, indique le même mail que celui de ton compte Club <span>{mail}</span>
+                    Au moment de payer, indique le même mail que celui de ton compte Club <span>{userInfo.mail}</span>
                 </p>
                 <p>
                     Lien de la boutique activée
@@ -54,22 +63,32 @@ const Brand: React.FC = () => {
         );
     };
 
+    const isObjectEmpty = (objectName: any) => {
+        return Object.keys(objectName).length === 0;
+    };
+
     useEffect(() => {
         const getAllVendorInfo = async () => {
             const getUserInfo = await getStorageItem("userInfo");
             const token = await getStorageItem("token");
-            const activateBrandDataToSend = {
-                email: getUserInfo.email,
-            };
-            setMail(getUserInfo.email);
+            setuserInfo((prevState) => ({ ...prevState, mail: getUserInfo.email, id: getUserInfo.id }));
             try {
-                const response = await handleGetData(`https://lodge-api.aihclubs.com/api/vendors/${id}`, {
+                const responseBrandData = await handleGetData(`https://lodge-api.aihclubs.com/api/vendors/${id}`, {
                     headers: {
                         "Content-Type": "application/json",
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setAllBrandsData(response.data.brands[0]);
+                let brandInfoToCheck;
+                try {
+                    if (isObjectEmpty(responseBrandData.data.ecomEndpoints[0]) === false) {
+                        brandInfoToCheck = responseBrandData.data.ecomEndpoints[0].name;
+                    }
+                } catch (error) {
+                    brandInfoToCheck = `/api/vendors/${id}`;
+                }
+                setAllBrandsData(responseBrandData.data.brands[0]);
+                checkiFAlreadySubscribed(getUserInfo.id, token, brandInfoToCheck);
             } catch (error) {
                 console.log(error);
             }
@@ -81,21 +100,17 @@ const Brand: React.FC = () => {
         try {
             setWaitingBrandActivation(true);
             const token = await getStorageItem("token");
-            const activateBrandDataToSend = {
-                email: mail,
-            };
 
-            const response = await handlePostData(`https://lodge-api.aihclubs.com/api/vendor/${id}/activate`, {
+            const subscribeResponse = await handlePostData(`https://lodge-api.aihclubs.com/api/vendor/${id}/activate`, {
                 headers: {
                     "Content-Type": "application/json",
                     Authorization: `Bearer ${token}`,
                 },
-                body: JSON.stringify(activateBrandDataToSend),
+                body: JSON.stringify({ email: userInfo.mail }),
             });
-            if (response.status === 200) {
+            if (subscribeResponse.status === 200) {
                 setWaitingBrandActivation(false);
-
-                renderToast("succes", validationMessage, 9000, true);
+                setBrandAlreadySubscribed(true);
             }
         } catch (error) {
             setWaitingBrandActivation(false);
@@ -105,6 +120,33 @@ const Brand: React.FC = () => {
             }
         }
     };
+
+    const checkiFAlreadySubscribed = async (userInfoID: string, token: string, comparisonBrandInfo: string) => {
+        try {
+            const checkUserSubscriptionResponse = await handleGetData(`https://lodge-api.aihclubs.com/api/users/${userInfoID}/vendors`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            let isSubscribed = false;
+            checkUserSubscriptionResponse.data["hydra:member"].forEach((element: any) => {
+                if (element.vendor.ecomEndpoints.length > 0) {
+                    if (element.vendor.ecomEndpoints[0].name === comparisonBrandInfo) {
+                        isSubscribed = true;
+                        return;
+                    }
+                } else if (element.vendor["@id"] === comparisonBrandInfo) {
+                    isSubscribed = true;
+                    return;
+                }
+            });
+            setBrandAlreadySubscribed(isSubscribed);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <IonPage id="main-content" className="allContainer">
             <div className="container">
@@ -144,8 +186,17 @@ const Brand: React.FC = () => {
                                     />
                                 </div>
                                 <div className={style.activeBrandButtonContainer}>
-                                    <div className={style.test}>
-                                        <ButtonSubmit text="Activer mon pass VIP" size="large" callFunctionOnClick={handleActivateVIP} />
+                                    <div>
+                                        {brandAlreadySubscribed !== null &&
+                                            (brandAlreadySubscribed ? (
+                                                <SuccessActivationBrandBlock title={""} message={validationMessage} />
+                                            ) : (
+                                                <ButtonSubmit
+                                                    text="Activer mon pass VIP"
+                                                    size="large"
+                                                    callFunctionOnClick={handleActivateVIP}
+                                                />
+                                            ))}
                                     </div>
                                 </div>
                             </>
